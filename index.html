@@ -10,7 +10,7 @@
 
     <style>
         :root {
-            --bg: #f3f1ee;
+            --bg: #e9e4d8;
             --fg: #1f1b18;
             --accent: #5a524c;
         }
@@ -21,7 +21,7 @@
 
         body {
             margin: 0;
-            padding: 40px 0;
+            padding: 60px 0;
             font-family: 'Cormorant Garamond', serif;
             background: var(--bg);
             color: var(--fg);
@@ -30,15 +30,36 @@
             text-align: center;
         }
 
-        /* Pergament + antiker Rahmen + Vignette */
-        .page {
-            max-width: 900px;
-            width: 100%;
-            padding: 60px 50px 80px;
+        /* Doppelseiten-Effekt */
+        .spread {
+            width: 95%;
+            max-width: 1400px;
             background: #f7f4e9;
             background-image: url('https://www.transparenttextures.com/patterns/aged-paper.png');
-            border: 4px solid rgba(40, 30, 20, 0.55);
+            padding: 60px 40px;
+            display: flex;
+            gap: 40px;
+            border: 6px double rgba(40, 30, 20, 0.55);
             box-shadow: 0 0 80px rgba(0,0,0,0.35);
+            position: relative;
+        }
+
+        /* Mittelknick */
+        .spread::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 4px;
+            background: rgba(0,0,0,0.15);
+            box-shadow: 0 0 12px rgba(0,0,0,0.3);
+        }
+
+        /* Linke & rechte Seite */
+        .page {
+            width: 50%;
+            padding: 20px 30px;
             position: relative;
         }
 
@@ -47,39 +68,45 @@
         .page::after {
             content: "❧✠❧";
             position: absolute;
-            font-size: 2.4rem;
+            font-size: 2.2rem;
             color: rgba(40, 30, 20, 0.45);
         }
 
         .page::before {
-            top: 12px;
-            left: 12px;
+            top: 10px;
+            left: 10px;
         }
 
         .page::after {
-            bottom: 12px;
-            right: 12px;
+            bottom: 10px;
+            right: 10px;
         }
 
-        .symbol-row {
-            font-size: 2.4rem;
-            opacity: 0.9;
-            letter-spacing: 1.2rem;
-            margin-bottom: 1.8rem;
+        /* Wappen */
+        .crest {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            letter-spacing: 1rem;
         }
 
         h1 {
-            font-size: 3.2rem;
-            margin: 0.2em 0 0.2em;
-            letter-spacing: 1px;
+            font-size: 3.4rem;
+            margin: 0.2em 0 0.4em;
             font-weight: 600;
         }
 
-        /* Größere & fettere Abschnittstitel */
+        /* Abschnittstitel */
         .section-title {
-            font-size: 1.75rem;
+            font-size: 1.9rem;
             margin: 2rem 0 1rem;
             font-weight: 700;
+        }
+
+        /* Zierlinie */
+        .divider {
+            font-size: 1.8rem;
+            opacity: 0.55;
+            margin: 1.5rem 0;
         }
 
         /* Einheitliche Schriftgröße */
@@ -103,3 +130,93 @@
         .coords {
             font-family: 'Great Vibes', cursive;
             font-size: 1.7rem;
+            line-height: 1.6;
+            margin-top: 1.2rem;
+        }
+
+        /* Verzierte Initiale */
+        .prolog-text::first-letter {
+            font-size: 4.6rem;
+            font-weight: 600;
+            float: left;
+            margin-right: 12px;
+            margin-top: 6px;
+            font-family: 'Cormorant Garamond', serif;
+            text-shadow: 2px 2px 3px rgba(0,0,0,0.35);
+            color: #3a2f25;
+        }
+
+        footer {
+            margin-top: 40px;
+            color: var(--accent);
+            opacity: 0.85;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="spread">
+
+        <!-- Linke Buchseite -->
+        <div class="page">
+
+            <div class="crest">🦴 🐦 🧜‍♀️</div>
+
+            <h1>Das Skelett, das Vögelchen und die Nixe</h1>
+
+            <h2 class="section-title">Prolog</h2>
+
+            <div class="prolog-text">
+Willkommen zum Abenteuer des uralten Knochenmanns, namens Johann, welcher unter ebenso uralten Bäumen haust.
+Er streifte einst alleine durch den Wald, bis er eines Tages ein Vöglein findet, welches sich in seinem Brustkorb ein Nest baut und ihn fortan begleitet ...
+            </div>
+
+            <div class="coords">
+Dies ist ein Geocache über die wichtigen Themen im Leben:
+Hoffnung, Vergänglichkeit und – natürlich! – die Liebe.
+            </div>
+
+            <div class="divider">✦✧✦</div>
+
+            <h2 class="section-title">Hinweise</h2>
+
+            <p>
+Für dieses Abenteuer benötigt ihr einen starken Magneten (max. Ø ca. 0,5 cm) und etwas zum Notieren.
+Unterwegs sammelt ihr Symbole und Zahlen, die euch Schritt für Schritt zum Final führen.
+Auf einem etwa 4 km langen Rundweg erwarten euch insgesamt sechs Stationen, an denen euch die Geschichte von Johann, dem Vögelchen und der Nixe zu Ende erzählt wird.
+            </p>
+
+        </div>
+
+        <!-- Rechte Buchseite -->
+        <div class="page">
+
+            <h2 class="section-title">Koordinaten</h2>
+            <div class="poem">
+Der Startpunkt eures Abenteuers:
+N 47° 51.077  
+E 008° 49.017
+            </div>
+
+            <div class="divider">✦✧✦</div>
+
+            <h2 class="section-title">Parken</h2>
+            <p>
+Parken könnt ihr bei:  
+N 47° 51.160  
+E 008° 49.005
+            </p>
+
+            <div class="divider">✦✧✦</div>
+
+            <h2 class="section-title enjoy">Viel Vergnügen!</h2>
+
+            <footer>
+                Nach einer Idee von A. Spreng
+            </footer>
+
+        </div>
+
+    </div>
+</body>
+</html>
