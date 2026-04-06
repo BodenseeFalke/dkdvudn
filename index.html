@@ -2,66 +2,143 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>DKDVUDN</title>
+    <title>Das Skelett, das Vögelchen und die Nixe</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&family=Inter:wght@300;400&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg: #fafafa;
+            --fg: #222222;
+            --accent: #555555;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
             padding: 0;
             font-family: 'Inter', sans-serif;
-            background: #fafafa;
-            color: #222;
+            background: var(--bg);
+            color: var(--fg);
             display: flex;
             justify-content: center;
-            align-items: center;
-            height: 100vh;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        .page {
+            max-width: 800px;
+            width: 100%;
+            padding: 40px 20px 60px;
+            margin: 40px 0;
+        }
+
+        header {
             text-align: center;
-            animation: fadeIn 1.6s ease;
+            margin-bottom: 40px;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .container {
-            max-width: 600px;
-            padding: 20px;
+        .symbol {
+            font-size: 1.6rem;
+            margin-bottom: 0.8rem;
+            opacity: 0.8;
         }
 
         h1 {
             font-family: 'EB Garamond', serif;
             font-size: 3rem;
-            margin-bottom: 0.2em;
+            margin: 0.1em 0 0.2em;
             letter-spacing: 1px;
         }
 
         .subtitle {
             font-family: 'EB Garamond', serif;
             font-size: 1.2rem;
-            margin-bottom: 2em;
-            opacity: 0.7;
+            opacity: 0.75;
+            margin-top: 1rem;
+            white-space: pre-line;
         }
 
         .coords {
-            font-size: 1.1rem;
-            letter-spacing: 0.5px;
-            margin-top: 1em;
+            margin-top: 1.4rem;
+            font-size: 1rem;
+            letter-spacing: 0.6px;
+            color: var(--accent);
+            white-space: pre-line;
         }
 
-        .symbol {
-            font-size: 1.4rem;
-            margin-bottom: 1.2em;
+        main {
+            margin-top: 40px;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        .section-title {
+            font-family: 'EB Garamond', serif;
+            font-size: 1.3rem;
+            margin: 2.2rem 0 0.6rem;
+        }
+
+        .poem {
+            font-family: 'EB Garamond', serif;
+            font-size: 1.05rem;
+            white-space: pre-line;
+            margin-top: 1rem;
+        }
+
+        footer {
+            margin-top: 50px;
+            font-size: 0.85rem;
+            text-align: center;
+            color: var(--accent);
             opacity: 0.8;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="symbol">✦</div>
-        <h1>DKDVUDN</h1>
-        <div class="subtitle">Ein stiller Ort zwischen Koordinaten und Bedeutung</div>
-        <div class="coords">N 47° XX.XXX · E 009° XX.XXX</div>
+    <div class="page">
+        <header>
+            <div class="symbol">✦</div>
+            <h1>Das Skelett, das Vögelchen und die Nixe</h1>
+
+            <div class="subtitle">
+Willkommen zum Abenteuer des uralten Knochenmanns, namens Johann, welcher unter ebenso uralten Bäumen haust.
+Er streifte einst alleine durch den Wald, bis er eines Tages ein Vöglein findet, welches sich in seinem Brustkorb ein Nest baut und ihn fortan begleitet ...
+            </div>
+
+            <div class="coords">
+Dies ist ein Geocache über die wichtigen Themen im Leben:
+Hoffnung, Vergänglichkeit und – natürlich! – die Liebe.
+            </div>
+        </header>
+
+        <main>
+            <p>
+Für dieses Abenteuer benötigt ihr einen starken Magneten (max. Ø ca. 0,5 cm) und etwas zum Notieren.
+Unterwegs sammelt ihr Symbole und Zahlen, die euch Schritt für Schritt zum Final führen.
+Auf einem etwa 4 km langen Rundweg erwarten euch insgesamt sechs Stationen, an denen euch die Geschichte von Johann, dem Vögelchen und der Nixe zu Ende erzählt wird.
+            </p>
+
+            <h2 class="section-title">Prolog</h2>
+            <div class="poem">
+Der Startpunkt eures Abenteuers:
+N 47° 51.077  
+E 008° 49.017
+            </div>
+
+            <h2 class="section-title">Notizen</h2>
+            <p>
+Parken könnt ihr bei:  
+N 47° 51.160  
+E 008° 49.005
+            </p>
+        </main>
+
+        <footer>
+            Das Skelett, das Vögelchen und die Nixe.
+        </footer>
     </div>
 </body>
 </html>
