@@ -5,8 +5,8 @@
     <title>Das Skelett, das Vögelchen und die Nixe</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Märchenhafte Schriftart -->
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Märchenhafte Hauptschrift + verschnörkelte Prolog-Schrift -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -37,8 +37,8 @@
             padding: 60px 50px 80px;
             background: #f7f4e9;
             background-image: url('https://www.transparenttextures.com/patterns/aged-paper.png');
-            border: 4px solid rgba(40, 30, 20, 0.45);
-            box-shadow: 0 0 60px rgba(0,0,0,0.25);
+            border: 4px solid rgba(40, 30, 20, 0.55);
+            box-shadow: 0 0 80px rgba(0,0,0,0.35);
             position: relative;
         }
 
@@ -47,7 +47,7 @@
         .page::after {
             content: "✠";
             position: absolute;
-            font-size: 2.4rem;
+            font-size: 2.6rem;
             color: rgba(40, 30, 20, 0.45);
         }
 
@@ -98,9 +98,22 @@
             white-space: pre-line;
         }
 
-        /* Fett für den Text zwischen Prolog & Hinweise */
-        .subtitle + .coords + .section-title + p {
+        /* Verschnörkelte Schrift für Prolog-Text */
+        .prolog-text {
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.7rem;
+            line-height: 1.6;
+            margin-top: 1.2rem;
+        }
+
+        /* Initiale */
+        .prolog-text::first-letter {
+            font-size: 3.8rem;
             font-weight: 600;
+            float: left;
+            margin-right: 8px;
+            margin-top: 4px;
+            font-family: 'Cormorant Garamond', serif;
         }
 
         main {
@@ -126,7 +139,7 @@
 
             <h2 class="section-title">Prolog</h2>
 
-            <div class="subtitle">
+            <div class="prolog-text">
 Willkommen zum Abenteuer des uralten Knochenmanns, namens Johann, welcher unter ebenso uralten Bäumen haust.
 Er streifte einst alleine durch den Wald, bis er eines Tages ein Vöglein findet, welches sich in seinem Brustkorb ein Nest baut und ihn fortan begleitet ...
             </div>
@@ -161,7 +174,7 @@ N 47° 51.160
 E 008° 49.005
             </p>
 
-            <h2 class="section-title enjoy">Viel Vergnügen</h2>
+            <h2 class="section-title enjoy">Viel Vergnügen!</h2>
 
         </main>
 
@@ -172,4 +185,3 @@ E 008° 49.005
     </div>
 </body>
 </html>
-
