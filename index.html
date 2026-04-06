@@ -294,13 +294,22 @@
             opacity: 0.85;
             font-size: 1rem;
         }
-    /* Mobile-Optimierung: Buch verkleinern */
+/* Mobile-Optimierung: Buch verkleinern */
 @media (max-width: 900px) {
     .book-container {
         transform: scale(0.55);
         transform-origin: top center;
     }
 }
+
+/* Noch stärkere Verkleinerung im Hochformat */
+@media (max-width: 600px) and (orientation: portrait) {
+    .book-container {
+        transform: scale(0.40);
+        transform-origin: top center;
+    }
+}
+
 </style>
 </head>
 
