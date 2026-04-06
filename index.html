@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <title>Das Skelett, das Vögelchen und die Nixe</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #fafafa;
-            --fg: #222222;
-            --accent: #555555;
+            --bg: #f3f1ee;
+            --fg: #1f1b18;
+            --accent: #5a524c;
         }
 
         * {
@@ -19,7 +19,7 @@
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Inter', sans-serif;
+            font-family: 'EB Garamond', serif;
             background: var(--bg);
             color: var(--fg);
             display: flex;
@@ -29,78 +29,79 @@
         }
 
         .page {
-            max-width: 800px;
+            max-width: 850px;
             width: 100%;
-            padding: 40px 20px 60px;
+            padding: 40px 24px 60px;
             margin: 40px 0;
         }
 
         header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
         }
 
-        .symbol {
-            font-size: 1.6rem;
-            margin-bottom: 0.8rem;
-            opacity: 0.8;
+        .symbol-row {
+            font-size: 2rem;
+            opacity: 0.85;
+            letter-spacing: 1rem;
+            margin-bottom: 1.2rem;
         }
 
         h1 {
-            font-family: 'EB Garamond', serif;
-            font-size: 3rem;
-            margin: 0.1em 0 0.2em;
+            font-size: 3.2rem;
+            margin: 0.2em 0 0.4em;
             letter-spacing: 1px;
+            font-weight: 600;
         }
 
         .subtitle {
-            font-family: 'EB Garamond', serif;
-            font-size: 1.2rem;
-            opacity: 0.75;
-            margin-top: 1rem;
+            font-size: 1.25rem;
+            opacity: 0.85;
             white-space: pre-line;
+            margin-top: 1rem;
         }
 
         .coords {
-            margin-top: 1.4rem;
-            font-size: 1rem;
-            letter-spacing: 0.6px;
+            margin-top: 1.6rem;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
             color: var(--accent);
             white-space: pre-line;
         }
 
         main {
-            margin-top: 40px;
-            line-height: 1.6;
-            font-size: 1rem;
+            margin-top: 50px;
+            line-height: 1.7;
+            font-size: 1.15rem;
         }
 
         .section-title {
-            font-family: 'EB Garamond', serif;
-            font-size: 1.3rem;
-            margin: 2.2rem 0 0.6rem;
+            font-size: 1.6rem;
+            margin: 2.4rem 0 0.8rem;
+            font-weight: 600;
         }
 
         .poem {
-            font-family: 'EB Garamond', serif;
-            font-size: 1.05rem;
+            font-size: 1.2rem;
             white-space: pre-line;
             margin-top: 1rem;
         }
 
         footer {
-            margin-top: 50px;
-            font-size: 0.85rem;
+            margin-top: 60px;
+            font-size: 1rem;
             text-align: center;
             color: var(--accent);
-            opacity: 0.8;
+            opacity: 0.85;
         }
     </style>
 </head>
 <body>
     <div class="page">
+
         <header>
-            <div class="symbol">✦</div>
+            <div class="symbol-row">✢ ❧ 🧜‍♀️</div>
+
             <h1>Das Skelett, das Vögelchen und die Nixe</h1>
 
             <div class="subtitle">
@@ -137,8 +138,9 @@ E 008° 49.005
         </main>
 
         <footer>
-            Nach einer Idee von A. Spreng.
+            ✢ Das Skelett, das Vögelchen und die Nixe ❧
         </footer>
+
     </div>
 </body>
 </html>
