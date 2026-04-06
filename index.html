@@ -26,6 +26,7 @@
             justify-content: center;
             align-items: flex-start;
             min-height: 100vh;
+            text-align: center; /* Alles zentriert */
         }
 
         .page {
@@ -33,11 +34,6 @@
             width: 100%;
             padding: 40px 24px 60px;
             margin: 40px 0;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 50px;
         }
 
         .symbol-row {
@@ -54,44 +50,34 @@
             font-weight: 600;
         }
 
-        .section-title {
-            font-size: 1.6rem;
-            margin: 1.2rem 0 0.8rem;
-            font-weight: 600;
-            text-align: center;
-        }
-
-        .subtitle {
+        /* Einheitliche Schriftgröße für ALLES außer h1 */
+        .section-title,
+        .subtitle,
+        .coords,
+        main p,
+        .poem,
+        footer {
             font-size: 1.25rem;
-            opacity: 0.85;
-            white-space: pre-line;
-            margin-top: 1.4rem;
         }
 
-        .coords {
-            margin-top: 1.8rem;
-            font-size: 1.1rem;
-            letter-spacing: 0.5px;
-            color: var(--accent);
+        .section-title {
+            margin: 1.6rem 0 0.8rem;
+            font-weight: 600;
+        }
+
+        .subtitle,
+        .coords,
+        .poem {
             white-space: pre-line;
         }
 
         main {
             margin-top: 50px;
             line-height: 1.7;
-            font-size: 1.15rem;
-        }
-
-        .poem {
-            font-size: 1.2rem;
-            white-space: pre-line;
-            margin-top: 1rem;
         }
 
         footer {
             margin-top: 60px;
-            font-size: 1rem;
-            text-align: center;
             color: var(--accent);
             opacity: 0.85;
         }
@@ -101,7 +87,7 @@
     <div class="page">
 
         <header>
-            <div class="symbol-row">🦴 ❧ 🧜‍♀️</div>
+            <div class="symbol-row">🦴 🐦 🧜‍♀️</div>
 
             <h1>Das Skelett, das Vögelchen und die Nixe</h1>
 
@@ -147,4 +133,3 @@ E 008° 49.005
     </div>
 </body>
 </html>
-
