@@ -78,7 +78,7 @@
 
         .login-title {
             font-size: 1.8rem;
-            margin-bottom: 1.2rem;
+            margin-bottom: 0.6rem;
             font-weight: 600;
         }
 
@@ -86,6 +86,7 @@
             font-size: 1.1rem;
             margin-bottom: 1.6rem;
             opacity: 0.9;
+            white-space: pre-line;
         }
 
         .login-field {
@@ -132,7 +133,7 @@
 
         /* Doppelseiten-Effekt */
         #content {
-            display: none; /* wird nach Login eingeblendet */
+            display: none;
         }
 
         .spread {
@@ -265,8 +266,10 @@
         <div class="login-box">
             <div class="login-crest">🦴 🐦 🧜‍♀️</div>
             <div class="login-title">Geheimer Zugang</div>
+
             <div class="login-sub">
-                Bitte gib Benutzername und Passwort ein, um das Märchenbuch zu öffnen.
+Bitte gib den Benutzernamen ein, um das Abenteuer zu beginnen.
+Das Passwort sollte einfach sein.
             </div>
 
             <div class="login-field">
@@ -284,7 +287,7 @@
         </div>
     </div>
 
-    <!-- Inhalt (wird nach Login sichtbar) -->
+    <!-- Inhalt -->
     <div id="content">
         <div class="spread">
 
@@ -330,55 +333,3 @@ N 47° 51.077
 E 008° 49.017
                 </div>
 
-                <div class="divider">✦✧✦</div>
-
-                <h2 class="section-title">Parken</h2>
-                <div class="parking-text">
-Parken könnt ihr bei:  
-N 47° 51.160  
-E 008° 49.005
-                </div>
-
-                <div class="divider">✦✧✦</div>
-
-                <h2 class="section-title enjoy">Viel Vergnügen!</h2>
-
-                <footer>
-                    Nach einer Idee von A. Spreng
-                </footer>
-
-            </div>
-
-        </div>
-    </div>
-
-    <script>
-        function checkLogin() {
-            const user = document.getElementById('login-user').value.trim();
-            const pass = document.getElementById('login-pass').value;
-            const error = document.getElementById('login-error');
-
-            const validUser = 'Johann';
-            const validPass = '1361920#';
-
-            if (user === validUser && pass === validPass) {
-                document.getElementById('login-overlay').style.display = 'none';
-                document.getElementById('content').style.display = 'flex';
-            } else {
-                error.textContent = 'Benutzername oder Passwort ist falsch.';
-            }
-        }
-
-        // Enter-Taste unterstützt
-        document.addEventListener('keydown', function (e) {
-            if (e.key === 'Enter') {
-                const overlay = document.getElementById('login-overlay');
-                if (overlay && overlay.style.display !== 'none') {
-                    checkLogin();
-                }
-            }
-        });
-    </script>
-
-</body>
-</html>
