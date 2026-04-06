@@ -132,10 +132,6 @@
         }
 
         /* Doppelseiten-Effekt */
-        #content {
-            display: none;
-        }
-
         .spread {
             width: 95%;
             max-width: 1400px;
@@ -333,3 +329,55 @@ N 47° 51.077
 E 008° 49.017
                 </div>
 
+                <div class="divider">✦✧✦</div>
+
+                <h2 class="section-title">Parken</h2>
+                <div class="parking-text">
+Parken könnt ihr bei:  
+N 47° 51.160  
+E 008° 49.005
+                </div>
+
+                <div class="divider">✦✧✦</div>
+
+                <h2 class="section-title enjoy">Viel Vergnügen!</h2>
+
+                <footer>
+                    Nach einer Idee von A. Spreng
+                </footer>
+
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function checkLogin() {
+            const user = document.getElementById('login-user').value.trim();
+            const pass = document.getElementById('login-pass').value.trim();
+            const error = document.getElementById('login-error');
+
+            const validUser = 'johann';
+            const validPass = 'einfach';
+
+            if (user.toLowerCase() === validUser && pass === validPass) {
+                // Overlay komplett entfernen → funktioniert auch lokal
+                const overlay = document.getElementById('login-overlay');
+                overlay.parentNode.removeChild(overlay);
+            } else {
+                error.textContent = 'Benutzername oder Passwort ist falsch.';
+            }
+        }
+
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') {
+                const overlay = document.getElementById('login-overlay');
+                if (overlay) {
+                    checkLogin();
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>
