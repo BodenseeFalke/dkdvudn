@@ -13,6 +13,10 @@
             --bg: #e9e4d8;
             --fg: #1f1b18;
             --accent: #5a524c;
+
+            /* Papiertexturen */
+            --paper-closed: url('https://www.transparenttextures.com/patterns/aged-paper.png');
+            --paper-open: url('https://www.transparenttextures.com/patterns/old-wall.png');
         }
 
         * {
@@ -29,7 +33,7 @@
             justify-content: center;
             text-align: center;
 
-            /* WICHTIG: starke Perspektive für Hardcover-Effekt */
+            /* Perspektive für 3D-Buch */
             perspective: 2000px;
             overflow-x: hidden;
         }
@@ -47,7 +51,7 @@
 
         .login-box {
             background: #f7f4e9;
-            background-image: url('https://www.transparenttextures.com/patterns/aged-paper.png');
+            background-image: var(--paper-closed);
             padding: 40px 50px;
             border: 4px double rgba(240, 230, 210, 0.9);
             box-shadow: 0 0 40px rgba(0,0,0,0.6);
@@ -135,33 +139,42 @@
             min-height: 1.2em;
         }
 
-        /* Inhalt standardmäßig UNSICHTBAR + Hardcover-Startposition */
+        /* Inhalt standardmäßig unsichtbar + Hardcover-Startposition */
         #content {
             visibility: hidden;
             opacity: 0;
             pointer-events: none;
 
-            /* Buch geschlossen, Deckel zeigt nach vorne */
+            /* Buch geschlossen */
             transform: rotateY(-85deg) scale(0.85);
             transform-origin: left center;
 
             transition:
                 opacity 1.2s ease,
-                transform 1.6s cubic-bezier(0.23, 1, 0.32, 1);
+                transform 1.6s cubic-bezier(0.23, 1, 0.32, 1),
+                filter 1.2s ease;
         }
 
         /* Doppelseiten-Effekt */
         .spread {
             width: 95%;
             max-width: 1400px;
-            background: #f7f4e9;
-            background-image: url('https://www.transparenttextures.com/patterns/aged-paper.png');
+            background-image: var(--paper-closed);
+            background-size: 300px;
             padding: 60px 40px;
             display: flex;
             gap: 40px;
             border: 6px double rgba(40, 30, 20, 0.55);
+
+            /* Start: dunkler, dichter */
+            filter: brightness(0.85) contrast(1.15);
+
             box-shadow: 0 0 80px rgba(0,0,0,0.35);
             position: relative;
+
+            transition:
+                background-image 1.2s ease,
+                filter 1.2s ease;
         }
 
         .spread::after {
@@ -175,10 +188,37 @@
             box-shadow: 0 0 12px rgba(0,0,0,0.3);
         }
 
+        /* Seitenwölbung + dynamische Schatten */
         .page {
             width: 50%;
             padding: 20px 30px;
             position: relative;
+            background-image: var(--paper-open);
+            background-size: 300px;
+            opacity: 0.97;
+        }
+
+        .page.left {
+            transform: perspective(1200px) rotateY(3deg) skewY(0.4deg);
+            transform-origin: left center;
+            box-shadow: inset -25px 0 40px rgba(0,0,0,0.15);
+            transition: box-shadow 1.2s ease;
+        }
+
+        .page.right {
+            transform: perspective(1200px) rotateY(-3deg) skewY(-0.4deg);
+            transform-origin: right center;
+            box-shadow: inset 25px 0 40px rgba(0,0,0,0.15);
+            transition: box-shadow 1.2s ease;
+        }
+
+        /* Schatten wandern beim Öffnen */
+        #content.open .page.left {
+            box-shadow: inset -10px 0 20px rgba(0,0,0,0.10);
+        }
+
+        #content.open .page.right {
+            box-shadow: inset 10px 0 20px rgba(0,0,0,0.10);
         }
 
         .page::before,
@@ -223,29 +263,12 @@
             margin: 1.5rem 0;
         }
 
-        .subtitle,
-        .coords,
-        main p,
-        .poem,
-        .enjoy {
-            font-size: 1.25rem;
-        }
-
-        .subtitle,
-        .coords,
-        .poem {
-            white-space: pre-line;
-        }
-
         .prolog-text,
         .coords {
             font-family: 'Great Vibes', cursive;
             font-size: 1.7rem;
             line-height: 1.6;
-        }
-
-        .prolog-text {
-            margin-top: 2.4rem;
+            white-space: pre-line;
         }
 
         .prolog-text::first-letter {
@@ -275,9 +298,6 @@
 </head>
 
 <body>
-
-    <!-- Sound -->
-    <audio id="book-sound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7f1e2e3f4c.mp3?filename=page-turn-110877.mp3"></audio>
 
     <!-- Login-Overlay -->
     <div id="login-overlay">
@@ -310,7 +330,7 @@ Das Passwort sollte einfach sein.
         <div class="spread">
 
             <!-- Linke Buchseite -->
-            <div class="page">
+            <div class="page left">
 
                 <div class="crest">🦴 🐦 🧜‍♀️</div>
 
@@ -331,7 +351,7 @@ Hoffnung, Vergänglichkeit und – natürlich! – die Liebe.
             </div>
 
             <!-- Rechte Buchseite -->
-            <div class="page">
+            <div class="page right">
 
                 <h2 class="section-title">Hinweise</h2>
 
@@ -384,26 +404,22 @@ E 008° 49.005
 
             if (user.toLowerCase() === validUser && pass === validPass) {
 
-                const sound = document.getElementById('book-sound');
-                sound.volume = 0.5;
+                // Overlay entfernen
+                const overlay = document.getElementById('login-overlay');
+                overlay.parentNode.removeChild(overlay);
 
-                // Sound zuerst starten
-                sound.play().catch(() => {
-                    console.log("Sound konnte nicht automatisch abgespielt werden.");
-                });
+                // Inhalt sichtbar machen + Hardcover-Animation starten
+                const content = document.getElementById('content');
+                content.classList.add('open');
+                content.style.visibility = 'visible';
+                content.style.opacity = '1';
+                content.style.pointerEvents = 'auto';
+                content.style.transform = 'rotateY(0deg) scale(1)';
 
-                // Overlay kurz verzögert entfernen
-                setTimeout(() => {
-                    const overlay = document.getElementById('login-overlay');
-                    overlay.parentNode.removeChild(overlay);
-
-                    // Inhalt sichtbar machen + Hardcover-Animation starten
-                    const content = document.getElementById('content');
-                    content.style.visibility = 'visible';
-                    content.style.opacity = '1';
-                    content.style.pointerEvents = 'auto';
-                    content.style.transform = 'rotateY(0deg) scale(1)';
-                }, 150);
+                // Papierstruktur wechseln
+                const spread = document.querySelector('.spread');
+                spread.style.backgroundImage = 'var(--paper-open)';
+                spread.style.filter = 'brightness(1) contrast(1)';
 
             } else {
                 error.textContent = 'Benutzername oder Passwort ist falsch.';
