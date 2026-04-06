@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <title>Das Skelett, das Vögelchen und die Nixe</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Märchenhafte Schriftart -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -20,7 +22,7 @@
         body {
             margin: 0;
             padding: 40px 0;
-            font-family: 'EB Garamond', serif;
+            font-family: 'Cormorant Garamond', serif;
             background: var(--bg);
             color: var(--fg);
             display: flex;
@@ -28,35 +30,35 @@
             text-align: center;
         }
 
-        /* Pergament-Hintergrund + verzierter Rahmen */
+        /* Pergament + antiker Rahmen + Vignette */
         .page {
             max-width: 900px;
             width: 100%;
-            padding: 50px 40px 70px;
+            padding: 60px 50px 80px;
             background: #f7f4e9;
             background-image: url('https://www.transparenttextures.com/patterns/aged-paper.png');
-            border: 3px solid rgba(60, 50, 40, 0.35);
-            box-shadow: 0 0 25px rgba(0,0,0,0.15);
+            border: 4px solid rgba(40, 30, 20, 0.45);
+            box-shadow: 0 0 60px rgba(0,0,0,0.25);
             position: relative;
         }
 
-        /* Eckenornamente */
+        /* Gothische Eckornamente */
         .page::before,
         .page::after {
-            content: "❦";
+            content: "✠";
             position: absolute;
-            font-size: 2rem;
-            color: rgba(60, 50, 40, 0.35);
+            font-size: 2.4rem;
+            color: rgba(40, 30, 20, 0.45);
         }
 
         .page::before {
-            top: 10px;
-            left: 10px;
+            top: 12px;
+            left: 12px;
         }
 
         .page::after {
-            bottom: 10px;
-            right: 10px;
+            bottom: 12px;
+            right: 12px;
         }
 
         .symbol-row {
@@ -66,13 +68,6 @@
             margin-bottom: 1.8rem;
         }
 
-        /* Verschnörkelte Ornamente */
-        .ornament {
-            font-size: 2rem;
-            opacity: 0.55;
-            margin: 1rem 0;
-        }
-
         h1 {
             font-size: 3.2rem;
             margin: 0.2em 0 0.2em;
@@ -80,19 +75,20 @@
             font-weight: 600;
         }
 
-        /* Größere Titel für Prolog, Koordinaten, Parken, Hinweise */
+        /* Abschnittstitel */
         .section-title {
             font-size: 1.55rem;
-            margin: 1.8rem 0 0.8rem;
+            margin: 2rem 0 1rem;
             font-weight: 600;
         }
 
-        /* Einheitliche Schriftgröße für alles andere */
+        /* Einheitliche Schriftgröße */
         .subtitle,
         .coords,
         main p,
         .poem,
-        footer {
+        footer,
+        .enjoy {
             font-size: 1.25rem;
         }
 
@@ -102,13 +98,18 @@
             white-space: pre-line;
         }
 
+        /* Fett für den Text zwischen Prolog & Hinweise */
+        .subtitle + .coords + .section-title + p {
+            font-weight: 600;
+        }
+
         main {
             margin-top: 50px;
             line-height: 1.7;
         }
 
         footer {
-            margin-top: 60px;
+            margin-top: 40px;
             color: var(--accent);
             opacity: 0.85;
         }
@@ -121,11 +122,7 @@
         <header>
             <div class="symbol-row">🦴 🐦 🧜‍♀️</div>
 
-            <div class="ornament">❧⟡❧</div>
-
             <h1>Das Skelett, das Vögelchen und die Nixe</h1>
-
-            <div class="ornament">❧⟡❧</div>
 
             <h2 class="section-title">Prolog</h2>
 
@@ -163,6 +160,9 @@ Parken könnt ihr bei:
 N 47° 51.160  
 E 008° 49.005
             </p>
+
+            <h2 class="section-title enjoy">Viel Vergnügen</h2>
+
         </main>
 
         <footer>
@@ -172,3 +172,4 @@ E 008° 49.005
     </div>
 </body>
 </html>
+
