@@ -30,7 +30,111 @@
             text-align: center;
         }
 
+        /* Login-Overlay */
+        #login-overlay {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at top, rgba(0,0,0,0.65), rgba(0,0,0,0.9));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .login-box {
+            background: #f7f4e9;
+            background-image: url('https://www.transparenttextures.com/patterns/aged-paper.png');
+            padding: 40px 50px;
+            border: 4px double rgba(240, 230, 210, 0.9);
+            box-shadow: 0 0 40px rgba(0,0,0,0.6);
+            max-width: 420px;
+            width: 90%;
+            position: relative;
+        }
+
+        .login-box::before,
+        .login-box::after {
+            content: "❧✠❧";
+            position: absolute;
+            font-size: 1.8rem;
+            color: rgba(40, 30, 20, 0.5);
+        }
+
+        .login-box::before {
+            top: 8px;
+            left: 12px;
+        }
+
+        .login-box::after {
+            bottom: 8px;
+            right: 12px;
+        }
+
+        .login-crest {
+            font-size: 2.4rem;
+            margin-bottom: 1rem;
+            letter-spacing: 0.7rem;
+        }
+
+        .login-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.2rem;
+            font-weight: 600;
+        }
+
+        .login-sub {
+            font-size: 1.1rem;
+            margin-bottom: 1.6rem;
+            opacity: 0.9;
+        }
+
+        .login-field {
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+
+        .login-field label {
+            display: block;
+            margin-bottom: 0.2rem;
+            font-size: 1.05rem;
+        }
+
+        .login-field input {
+            width: 100%;
+            padding: 8px 10px;
+            border-radius: 4px;
+            border: 1px solid rgba(40, 30, 20, 0.4);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.05rem;
+            background: #fdfaf2;
+        }
+
+        .login-button {
+            margin-top: 0.8rem;
+            padding: 8px 22px;
+            font-size: 1.1rem;
+            border-radius: 4px;
+            border: 1px solid rgba(40, 30, 20, 0.7);
+            background: #e0d2b8;
+            cursor: pointer;
+        }
+
+        .login-button:hover {
+            background: #d4c4a6;
+        }
+
+        .login-error {
+            margin-top: 0.8rem;
+            color: #7b2b2b;
+            font-size: 0.95rem;
+            min-height: 1.2em;
+        }
+
         /* Doppelseiten-Effekt */
+        #content {
+            display: none; /* wird nach Login eingeblendet */
+        }
+
         .spread {
             width: 95%;
             max-width: 1400px;
@@ -44,7 +148,6 @@
             position: relative;
         }
 
-        /* Mittelknick */
         .spread::after {
             content: "";
             position: absolute;
@@ -56,14 +159,12 @@
             box-shadow: 0 0 12px rgba(0,0,0,0.3);
         }
 
-        /* Linke & rechte Seite */
         .page {
             width: 50%;
             padding: 20px 30px;
             position: relative;
         }
 
-        /* Kunstvollere gothische Eckornamente */
         .page::before,
         .page::after {
             content: "❧✠❧";
@@ -82,7 +183,6 @@
             right: 10px;
         }
 
-        /* Wappen */
         .crest {
             font-size: 3rem;
             margin-bottom: 1.5rem;
@@ -95,21 +195,18 @@
             font-weight: 600;
         }
 
-        /* Abschnittstitel */
         .section-title {
             font-size: 1.9rem;
             margin: 2rem 0 1rem;
             font-weight: 700;
         }
 
-        /* Zierlinie */
         .divider {
             font-size: 1.8rem;
             opacity: 0.55;
             margin: 1.5rem 0;
         }
 
-        /* Einheitliche Schriftgröße */
         .subtitle,
         .coords,
         main p,
@@ -124,7 +221,6 @@
             white-space: pre-line;
         }
 
-        /* Verschnörkelte Schrift für Prolog-Text + coords */
         .prolog-text,
         .coords {
             font-family: 'Great Vibes', cursive;
@@ -132,12 +228,10 @@
             line-height: 1.6;
         }
 
-        /* Mehr Abstand zwischen Prolog & Willkommen */
         .prolog-text {
             margin-top: 2.4rem;
         }
 
-        /* Verzierte Initiale */
         .prolog-text::first-letter {
             font-size: 4.6rem;
             font-weight: 600;
@@ -149,7 +243,6 @@
             color: #3a2f25;
         }
 
-        /* Größere Schrift für Parken-Block */
         .parking-text {
             font-size: 1.7rem;
             white-space: pre-line;
@@ -160,75 +253,132 @@
             margin-top: 40px;
             color: var(--accent);
             opacity: 0.85;
-            font-size: 1rem; /* kleinerer Footer-Text */
+            font-size: 1rem;
         }
     </style>
 </head>
 
 <body>
-    <div class="spread">
 
-        <!-- Linke Buchseite -->
-        <div class="page">
+    <!-- Login-Overlay -->
+    <div id="login-overlay">
+        <div class="login-box">
+            <div class="login-crest">🦴 🐦 🧜‍♀️</div>
+            <div class="login-title">Geheimer Zugang</div>
+            <div class="login-sub">
+                Bitte gib Benutzername und Passwort ein, um das Märchenbuch zu öffnen.
+            </div>
 
-            <div class="crest">🦴 🐦 🧜‍♀️</div>
+            <div class="login-field">
+                <label for="login-user">Benutzername</label>
+                <input type="text" id="login-user" autocomplete="off">
+            </div>
 
-            <h1>Das Skelett, das Vögelchen und die Nixe</h1>
+            <div class="login-field">
+                <label for="login-pass">Passwort</label>
+                <input type="password" id="login-pass">
+            </div>
 
-            <h2 class="section-title">Prolog</h2>
+            <button class="login-button" onclick="checkLogin()">Betreten</button>
+            <div class="login-error" id="login-error"></div>
+        </div>
+    </div>
 
-            <div class="prolog-text">
+    <!-- Inhalt (wird nach Login sichtbar) -->
+    <div id="content">
+        <div class="spread">
+
+            <!-- Linke Buchseite -->
+            <div class="page">
+
+                <div class="crest">🦴 🐦 🧜‍♀️</div>
+
+                <h1>Das Skelett, das Vögelchen und die Nixe</h1>
+
+                <h2 class="section-title">Prolog</h2>
+
+                <div class="prolog-text">
 Willkommen zum Abenteuer des uralten Knochenmanns, namens Johann, welcher unter ebenso uralten Bäumen haust.
 Er streifte einst alleine durch den Wald, bis er eines Tages ein Vöglein findet, welches sich in seinem Brustkorb ein Nest baut und ihn fortan begleitet ...
-            </div>
+                </div>
 
-            <div class="coords">
+                <div class="coords">
 Dies ist ein Geocache über die wichtigen Themen im Leben:
 Hoffnung, Vergänglichkeit und – natürlich! – die Liebe.
+                </div>
+
             </div>
 
-        </div>
+            <!-- Rechte Buchseite -->
+            <div class="page">
 
-        <!-- Rechte Buchseite -->
-        <div class="page">
+                <h2 class="section-title">Hinweise</h2>
 
-            <h2 class="section-title">Hinweise</h2>
-
-            <p>
+                <p>
 Für dieses Abenteuer benötigt ihr einen starken Magneten (max. Ø ca. 0,5 cm) und etwas zum Notieren.
 Unterwegs sammelt ihr Symbole und Zahlen, die euch Schritt für Schritt zum Final führen.
 Auf einem etwa 4 km langen Rundweg erwarten euch insgesamt sechs Stationen, an denen euch die Geschichte von Johann, dem Vögelchen und der Nixe zu Ende erzählt wird.
 Plant hierfür bitte etwa 1 Stunde reinen Fußweg zzgl. Ratezeit ein.
-            </p>
+                </p>
 
-            <div class="divider">✦✧✦</div>
+                <div class="divider">✦✧✦</div>
 
-            <h2 class="section-title">Koordinaten</h2>
-            <div class="poem">
+                <h2 class="section-title">Koordinaten</h2>
+                <div class="poem">
 Der Startpunkt eures Abenteuers:
 N 47° 51.077  
 E 008° 49.017
-            </div>
+                </div>
 
-            <div class="divider">✦✧✦</div>
+                <div class="divider">✦✧✦</div>
 
-            <h2 class="section-title">Parken</h2>
-            <div class="parking-text">
+                <h2 class="section-title">Parken</h2>
+                <div class="parking-text">
 Parken könnt ihr bei:  
 N 47° 51.160  
 E 008° 49.005
+                </div>
+
+                <div class="divider">✦✧✦</div>
+
+                <h2 class="section-title enjoy">Viel Vergnügen!</h2>
+
+                <footer>
+                    Nach einer Idee von A. Spreng
+                </footer>
+
             </div>
 
-            <div class="divider">✦✧✦</div>
-
-            <h2 class="section-title enjoy">Viel Vergnügen!</h2>
-
-            <footer>
-                Nach einer Idee von A. Spreng
-            </footer>
-
         </div>
-
     </div>
+
+    <script>
+        function checkLogin() {
+            const user = document.getElementById('login-user').value.trim();
+            const pass = document.getElementById('login-pass').value;
+            const error = document.getElementById('login-error');
+
+            const validUser = 'Johann';
+            const validPass = '1361920#';
+
+            if (user === validUser && pass === validPass) {
+                document.getElementById('login-overlay').style.display = 'none';
+                document.getElementById('content').style.display = 'flex';
+            } else {
+                error.textContent = 'Benutzername oder Passwort ist falsch.';
+            }
+        }
+
+        // Enter-Taste unterstützt
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') {
+                const overlay = document.getElementById('login-overlay');
+                if (overlay && overlay.style.display !== 'none') {
+                    checkLogin();
+                }
+            }
+        });
+    </script>
+
 </body>
 </html>
