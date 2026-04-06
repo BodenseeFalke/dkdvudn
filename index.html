@@ -5,6 +5,7 @@
     <title>Das Skelett, das Vögelchen und die Nixe</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+
     <style>
         :root {
             --bg: #f3f1ee;
@@ -18,29 +19,31 @@
 
         body {
             margin: 0;
-            padding: 0;
+            padding: 40px 0;
             font-family: 'EB Garamond', serif;
             background: var(--bg);
             color: var(--fg);
             display: flex;
             justify-content: center;
-            align-items: flex-start;
-            min-height: 100vh;
-            text-align: center; /* Alles zentriert */
+            text-align: center;
         }
 
+        /* Pergament-Hintergrund */
         .page {
-            max-width: 850px;
+            max-width: 900px;
             width: 100%;
-            padding: 40px 24px 60px;
-            margin: 40px 0;
+            padding: 50px 40px 70px;
+            background: #f7f4e9;
+            background-image: url('https://www.transparenttextures.com/patterns/aged-paper.png');
+            border: 2px solid rgba(60, 50, 40, 0.35);
+            box-shadow: 0 0 25px rgba(0,0,0,0.15);
         }
 
         .symbol-row {
-            font-size: 2.2rem;
+            font-size: 2.4rem;
             opacity: 0.9;
             letter-spacing: 1.2rem;
-            margin-bottom: 1.6rem;
+            margin-bottom: 1.8rem;
         }
 
         h1 {
@@ -50,19 +53,20 @@
             font-weight: 600;
         }
 
-        /* Einheitliche Schriftgröße für ALLES außer h1 */
-        .section-title,
+        /* Größere Titel für Prolog, Koordinaten, Parken */
+        .section-title {
+            font-size: 1.55rem;
+            margin: 1.8rem 0 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Einheitliche Schriftgröße für alles andere */
         .subtitle,
         .coords,
         main p,
         .poem,
         footer {
             font-size: 1.25rem;
-        }
-
-        .section-title {
-            margin: 1.6rem 0 0.8rem;
-            font-weight: 600;
         }
 
         .subtitle,
@@ -83,6 +87,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="page">
 
