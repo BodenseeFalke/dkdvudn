@@ -28,6 +28,7 @@
             display: flex;
             justify-content: center;
             text-align: center;
+            overflow-x: hidden;
         }
 
         /* Login-Overlay */
@@ -136,7 +137,11 @@
             visibility: hidden;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.4s ease;
+            transform: scale(0.92) rotateX(12deg);
+            transform-origin: center top;
+            transition:
+                opacity 1.2s ease,
+                transform 1.2s ease;
         }
 
         /* Doppelseiten-Effekt */
@@ -265,6 +270,9 @@
 
 <body>
 
+    <!-- Sound -->
+    <audio id="book-sound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7f1e2e3f4c.mp3?filename=page-turn-110877.mp3"></audio>
+
     <!-- Login-Overlay -->
     <div id="login-overlay">
         <div class="login-box">
@@ -370,15 +378,21 @@ E 008° 49.005
 
             if (user.toLowerCase() === validUser && pass === validPass) {
 
+                // Sound abspielen
+                const sound = document.getElementById('book-sound');
+                sound.volume = 0.4;
+                sound.play();
+
                 // Overlay entfernen
                 const overlay = document.getElementById('login-overlay');
                 overlay.parentNode.removeChild(overlay);
 
-                // Inhalt sichtbar machen
+                // Inhalt sichtbar machen + Animation starten
                 const content = document.getElementById('content');
                 content.style.visibility = 'visible';
                 content.style.opacity = '1';
                 content.style.pointerEvents = 'auto';
+                content.style.transform = 'scale(1) rotateX(0deg)';
 
             } else {
                 error.textContent = 'Benutzername oder Passwort ist falsch.';
