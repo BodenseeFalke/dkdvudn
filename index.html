@@ -28,15 +28,35 @@
             text-align: center;
         }
 
-        /* Pergament-Hintergrund */
+        /* Pergament-Hintergrund + verzierter Rahmen */
         .page {
             max-width: 900px;
             width: 100%;
             padding: 50px 40px 70px;
             background: #f7f4e9;
             background-image: url('https://www.transparenttextures.com/patterns/aged-paper.png');
-            border: 2px solid rgba(60, 50, 40, 0.35);
+            border: 3px solid rgba(60, 50, 40, 0.35);
             box-shadow: 0 0 25px rgba(0,0,0,0.15);
+            position: relative;
+        }
+
+        /* Eckenornamente */
+        .page::before,
+        .page::after {
+            content: "❦";
+            position: absolute;
+            font-size: 2rem;
+            color: rgba(60, 50, 40, 0.35);
+        }
+
+        .page::before {
+            top: 10px;
+            left: 10px;
+        }
+
+        .page::after {
+            bottom: 10px;
+            right: 10px;
         }
 
         .symbol-row {
@@ -44,6 +64,13 @@
             opacity: 0.9;
             letter-spacing: 1.2rem;
             margin-bottom: 1.8rem;
+        }
+
+        /* Linienornamente */
+        .ornament {
+            font-size: 1.8rem;
+            opacity: 0.55;
+            margin: 0.8rem 0;
         }
 
         h1 {
@@ -94,7 +121,11 @@
         <header>
             <div class="symbol-row">🦴 🐦 🧜‍♀️</div>
 
+            <div class="ornament">⎯⎯⎯❧⎯⎯⎯</div>
+
             <h1>Das Skelett, das Vögelchen und die Nixe</h1>
+
+            <div class="ornament">⎯⎯⎯❧⎯⎯⎯</div>
 
             <h2 class="section-title">Prolog</h2>
 
