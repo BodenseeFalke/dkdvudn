@@ -131,6 +131,14 @@
             min-height: 1.2em;
         }
 
+        /* Inhalt standardmäßig UNSICHTBAR */
+        #content {
+            visibility: hidden;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
         /* Doppelseiten-Effekt */
         .spread {
             width: 95%;
@@ -361,9 +369,17 @@ E 008° 49.005
             const validPass = 'einfach';
 
             if (user.toLowerCase() === validUser && pass === validPass) {
-                // Overlay komplett entfernen → funktioniert auch lokal
+
+                // Overlay entfernen
                 const overlay = document.getElementById('login-overlay');
                 overlay.parentNode.removeChild(overlay);
+
+                // Inhalt sichtbar machen
+                const content = document.getElementById('content');
+                content.style.visibility = 'visible';
+                content.style.opacity = '1';
+                content.style.pointerEvents = 'auto';
+
             } else {
                 error.textContent = 'Benutzername oder Passwort ist falsch.';
             }
