@@ -28,6 +28,9 @@
             display: flex;
             justify-content: center;
             text-align: center;
+
+            /* WICHTIG: starke Perspektive für Hardcover-Effekt */
+            perspective: 2000px;
             overflow-x: hidden;
         }
 
@@ -132,16 +135,19 @@
             min-height: 1.2em;
         }
 
-        /* Inhalt standardmäßig UNSICHTBAR */
+        /* Inhalt standardmäßig UNSICHTBAR + Hardcover-Startposition */
         #content {
             visibility: hidden;
             opacity: 0;
             pointer-events: none;
-            transform: scale(0.92) rotateX(12deg);
-            transform-origin: center top;
+
+            /* Buch geschlossen, Deckel zeigt nach vorne */
+            transform: rotateY(-85deg) scale(0.85);
+            transform-origin: left center;
+
             transition:
                 opacity 1.2s ease,
-                transform 1.2s ease;
+                transform 1.6s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
         /* Doppelseiten-Effekt */
@@ -378,21 +384,26 @@ E 008° 49.005
 
             if (user.toLowerCase() === validUser && pass === validPass) {
 
-                // Sound abspielen
                 const sound = document.getElementById('book-sound');
-                sound.volume = 0.4;
-                sound.play();
+                sound.volume = 0.5;
 
-                // Overlay entfernen
-                const overlay = document.getElementById('login-overlay');
-                overlay.parentNode.removeChild(overlay);
+                // Sound zuerst starten
+                sound.play().catch(() => {
+                    console.log("Sound konnte nicht automatisch abgespielt werden.");
+                });
 
-                // Inhalt sichtbar machen + Animation starten
-                const content = document.getElementById('content');
-                content.style.visibility = 'visible';
-                content.style.opacity = '1';
-                content.style.pointerEvents = 'auto';
-                content.style.transform = 'scale(1) rotateX(0deg)';
+                // Overlay kurz verzögert entfernen
+                setTimeout(() => {
+                    const overlay = document.getElementById('login-overlay');
+                    overlay.parentNode.removeChild(overlay);
+
+                    // Inhalt sichtbar machen + Hardcover-Animation starten
+                    const content = document.getElementById('content');
+                    content.style.visibility = 'visible';
+                    content.style.opacity = '1';
+                    content.style.pointerEvents = 'auto';
+                    content.style.transform = 'rotateY(0deg) scale(1)';
+                }, 150);
 
             } else {
                 error.textContent = 'Benutzername oder Passwort ist falsch.';
