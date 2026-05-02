@@ -315,31 +315,31 @@
 
 <body>
 
-    <!-- Login-Overlay -->
-    <div id="login-overlay">
-        <div class="login-box">
-            <div class="login-crest">🦴 🐦 🧜‍♀️</div>
-            <div class="login-title">Geheimer Zugang</div>
+<!-- Login-Overlay -->
+<div id="login-overlay">
+    <div class="login-box">
+        <div class="login-crest">🦴 🐦 🧜‍♀️</div>
+        <div class="login-title">Geheimer Zugang</div>
 
-            <div class="login-sub">
-Bitte gib den Benutzernamen ein, um das Abenteuer zu beginnen.
-Das Passwort sollte einfach sein.
-            </div>
-
-            <div class="login-field">
-                <label for="login-user">Benutzername</label>
-                <input type="text" id="login-user" autocomplete="off">
-            </div>
-
-            <div class="login-field">
-                <label for="login-pass">Passwort</label>
-                <input type="password" id="login-pass">
-            </div>
-
-            <button class="login-button" onclick="checkLogin()">Betreten</button>
-            <div class="login-error" id="login-error"></div>
+        <div class="login-sub">
+            Bitte gib den Benutzernamen ein, um das Abenteuer zu beginnen.
+            Das Passwort sollte einfach sein.
         </div>
+
+        <div class="login-field">
+            <label for="user">Benutzername</label>
+            <input type="text" id="user" autocomplete="off">
+        </div>
+
+        <div class="login-field">
+            <label for="pw">Passwort</label>
+            <input type="password" id="pw">
+        </div>
+
+        <button id="login-button" onclick="checkLogin()">Betreten</button>
+        <div class="login-error" id="login-error"></div>
     </div>
+</div>
 
     <!-- Inhalt -->
     <div id="content">
@@ -451,6 +451,41 @@ E 008° 49.005
             }
         });
     </script>
+<script>
+async function sha256(str) {
+    const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(str));
+    return Array.from(new Uint8Array(buf))
+        .map(b => b.toString(16).padStart(2, "0"))
+        .join("");
+}
+
+async function checkLogin() {
+    const userInput = document.getElementById("user").value;
+    const pwInput = document.getElementById("pw").value;
+
+    const userHash = await sha256(userInput);
+    const pwHash = await sha256(pwInput);
+
+    const validUserHash = "05d27d804fa2eab1dc6d2257b71e4d4dee299d0325794dc5f8e07eab40b672a3";
+    const validPwHash   = "92b9907fe97032befd467899d5d75fe14ad36a663f6a8b22679e2f096accd18a";
+
+    if (userHash === validUserHash && pwHash === validPwHash) {
+        window.location.href = "geheim.html";
+    } else {
+        alert("Benutzername oder Passwort falsch");
+    }
+}
+
+// Login per Klick
+document.getElementById("login-button").addEventListener("click", checkLogin);
+
+// Login per Enter
+document.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") {
+        checkLogin();
+    }
+});
+</script>
 
 </body>
 </html>
