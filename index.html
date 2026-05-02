@@ -409,22 +409,28 @@ E 008° 49.005
         </div>
     </div>
 
-    <script>
-        function checkLogin() {
-            const user = document.getElementById('login-user').value.trim();
-            const pass = document.getElementById('login-pass').value.trim();
-            const error = document.getElementById('login-error');
+async function sha256(str) {
+  const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf))
+    .map(b => b.toString(16).padStart(2, "0"))
+    .join("");
+}
 
-            const validUserHash = '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92';
-            const validPass = 'einfach';
+async function checkLogin() {
+  const userInput = document.getElementById("user").value;
+  const pwInput = document.getElementById("pw").value;
 
-            const userInput = document.getElementById("user").value;
-const userHash = await sha256(userInput);
+  const userHash = await sha256(userInput);
+  const pwHash = await sha256(pwInput);
 
-if (userHash === validUserHash) {
-    // Login OK
-} else {
+  const validUserHash = "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92"; // Hash von "Johann"
+  const validPwHash   = "0f94f7a7a4b0f6e4f2a8c3d8b9e4f1c6d7a3b8e9c4f0d2a1e3b5c7d9f1a2b3"; // Hash von "einfach"
+
+  if (userHash === validUserHash && pwHash === validPwHash) {
+    window.location.href = "geheim.html";
+  } else {
     alert("Benutzername oder Passwort falsch");
+  }
 }
 
         document.addEventListener('keydown', function (e) {
