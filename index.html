@@ -470,7 +470,7 @@ async function checkLogin() {
     const validPwHash   = "92b9907fe97032befd467899d5d75fe14ad36a663f6a8b22679e2f096accd18a";
 
     if (userHash === validUserHash && pwHash === validPwHash) {
-        window.location.href = "geheim.html";
+        document.getElementById("login-overlay").style.display = "none";
     } else {
         alert("Benutzername oder Passwort falsch");
     }
