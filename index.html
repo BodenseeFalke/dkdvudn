@@ -423,7 +423,7 @@ async function checkLogin() {
   const userHash = await sha256(userInput);
   const pwHash = await sha256(pwInput);
 
-  const validUserHash = "8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92";
+  const validUserHash = "05d27d804fa2eab1dc6d2257b71e4d4dee299d0325794dc5f8e07eab40b672a3";
   const validPwHash = "92b9907fe97032befd467899d5d75fe14ad36a663f6a8b22679e2f096accd18a";
 
   if (userHash === validUserHash && pwHash === validPwHash) {
