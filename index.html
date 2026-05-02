@@ -418,29 +418,14 @@ E 008° 49.005
             const validUserHash = '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92';
             const validPass = 'einfach';
 
-            if (user.toLowerCase() === validUser && pass === validPass) {
+            const userInput = document.getElementById("user").value;
+const userHash = await sha256(userInput);
 
-                // Overlay entfernen
-                const overlay = document.getElementById('login-overlay');
-                overlay.parentNode.removeChild(overlay);
-
-                // Inhalt sichtbar machen + Hardcover-Animation starten
-                const content = document.getElementById('content');
-                content.classList.add('open');
-                content.style.visibility = 'visible';
-                content.style.opacity = '1';
-                content.style.pointerEvents = 'auto';
-                content.style.transform = 'rotateY(0deg) scale(1)';
-
-                // Papierstruktur wechseln
-                const spread = document.querySelector('.spread');
-                spread.style.backgroundImage = 'var(--paper-open)';
-                spread.style.filter = 'brightness(1) contrast(1)';
-
-            } else {
-                error.textContent = 'Benutzername oder Passwort ist falsch.';
-            }
-        }
+if (userHash === validUserHash) {
+    // Login OK
+} else {
+    alert("Benutzername oder Passwort falsch");
+}
 
         document.addEventListener('keydown', function (e) {
             if (e.key === 'Enter') {
