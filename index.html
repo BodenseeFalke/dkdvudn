@@ -409,48 +409,6 @@ E 008° 49.005
         </div>
     </div>
 
-    <script>
-        function checkLogin() {
-            const user = document.getElementById('login-user').value.trim();
-            const pass = document.getElementById('login-pass').value.trim();
-            const error = document.getElementById('login-error');
-
-            const validUser = 'johann';
-            const validPass = 'einfach';
-
-            if (user.toLowerCase() === validUser && pass === validPass) {
-
-                // Overlay entfernen
-                const overlay = document.getElementById('login-overlay');
-                overlay.parentNode.removeChild(overlay);
-
-                // Inhalt sichtbar machen + Hardcover-Animation starten
-                const content = document.getElementById('content');
-                content.classList.add('open');
-                content.style.visibility = 'visible';
-                content.style.opacity = '1';
-                content.style.pointerEvents = 'auto';
-                content.style.transform = 'rotateY(0deg) scale(1)';
-
-                // Papierstruktur wechseln
-                const spread = document.querySelector('.spread');
-                spread.style.backgroundImage = 'var(--paper-open)';
-                spread.style.filter = 'brightness(1) contrast(1)';
-
-            } else {
-                error.textContent = 'Benutzername oder Passwort ist falsch.';
-            }
-        }
-
-        document.addEventListener('keydown', function (e) {
-            if (e.key === 'Enter') {
-                const overlay = document.getElementById('login-overlay');
-                if (overlay) {
-                    checkLogin();
-                }
-            }
-        });
-    </script>
 <script>
 async function sha256(str) {
     const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(str));
@@ -460,19 +418,36 @@ async function sha256(str) {
 }
 
 async function checkLogin() {
-    const userInput = document.getElementById("user").value;
-    const pwInput = document.getElementById("pw").value;
+    const userInput = document.getElementById("user").value.trim();
+    const pwInput = document.getElementById("pw").value.trim();
 
     const userHash = await sha256(userInput);
     const pwHash = await sha256(pwInput);
 
     const validUserHash = "05d27d804fa2eab1dc6d2257b71e4d4dee299d0325794dc5f8e07eab40b672a3";
-    const validPwHash   = "92b9907fe97032befd467899d5d75fe14ad36a663f6a8b22679e2f096accd18a";
+    const validPwHash = "92b9907fe97032befd467899d5d75fe14ad36a663f6a8b22679e2f096accd18a";
 
     if (userHash === validUserHash && pwHash === validPwHash) {
+
+        // Overlay ausblenden
         document.getElementById("login-overlay").style.display = "none";
+
+        // Inhalt sichtbar machen + Animation starten
+        const content = document.getElementById("content");
+        content.classList.add("open");
+        content.style.visibility = "visible";
+        content.style.opacity = "1";
+        content.style.pointerEvents = "auto";
+        content.style.transform = "rotateY(0deg) scale(1)";
+
+        // Papierstruktur wechseln
+        const spread = document.querySelector(".spread");
+        spread.style.backgroundImage = "var(--paper-open)";
+        spread.style.filter = "brightness(1) contrast(1)";
+
     } else {
-        alert("Benutzername oder Passwort falsch");
+        document.getElementById("login-error").textContent =
+            "Benutzername oder Passwort ist falsch.";
     }
 }
 
@@ -486,6 +461,7 @@ document.addEventListener("keydown", function (e) {
     }
 });
 </script>
+
 
 </body>
 </html>
