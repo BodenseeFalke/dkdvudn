@@ -43,17 +43,20 @@
             z-index: 9999;
         }
 
-        .login-box {
-            background: #f7f4e9;
-            background-image: var(--paper-closed);
-            padding: 40px 50px;
-            border: 4px double rgba(240, 230, 210, 0.9);
-            box-shadow: 0 0 40px rgba(0,0,0,0.6);
-            max-width: 420px;
-            width: 90%;
-            position: relative;
-        }
+       .login-box {
+    background: #f7f4e9;
+    background-image: var(--paper-closed);
+    padding: 40px 50px;
+    border: 4px double rgba(240, 230, 210, 0.9);
+    box-shadow: 0 0 40px rgba(0,0,0,0.6);
+    max-width: 420px;
+    width: 90%;
 
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
         .login-crest {
             font-size: 2.4rem;
             margin-bottom: 1rem;
