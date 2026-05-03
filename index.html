@@ -6,11 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            /* Gothic-Nebel Farben */
             --bg: #1a1a1d;
             --bg-gradient: radial-gradient(circle at top, #2a2a30, #0f0f12 70%);
             --paper: #2b2b31;
@@ -30,19 +29,19 @@
             background: var(--bg-gradient);
             color: var(--text);
             overflow-x: hidden;
-            text-align: center; /* Eleganter Märchenbuch-Stil */
+            text-align: center;
         }
 
-        /* --- Nebel-Animation --- */
+        /* --- Nebel-Animation (neue funktionierende Version) --- */
         #fog-layer {
             position: fixed;
             inset: 0;
             pointer-events: none;
             z-index: 1;
-            background: url('https://i.imgur.com/8fK4h8F.png');
+            background: url('https://i.ibb.co/8m0qv0P/fog-soft.png');
             background-size: 200% 200%;
-            opacity: 0.18;
-            animation: fogMove 45s ease-in-out infinite;
+            opacity: 0.22;
+            animation: fogMove 55s ease-in-out infinite;
         }
 
         @keyframes fogMove {
@@ -101,12 +100,6 @@
             text-align: left;
         }
 
-        .login-field label {
-            display: block;
-            margin-bottom: 0.2rem;
-            font-size: 1.05rem;
-        }
-
         .login-field input {
             width: 100%;
             padding: 8px 10px;
@@ -114,7 +107,6 @@
             border: 1px solid rgba(184,164,214,0.4);
             background: #1f1f23;
             color: var(--text);
-            font-size: 1.05rem;
         }
 
         .login-button {
@@ -128,17 +120,6 @@
             cursor: pointer;
         }
 
-        .login-button:hover {
-            background: #3a3a42;
-        }
-
-        .login-error {
-            margin-top: 0.8rem;
-            color: #d88;
-            font-size: 0.95rem;
-            min-height: 1.2em;
-        }
-
         /* BUCH-INHALT */
         #content {
             visibility: hidden;
@@ -147,8 +128,7 @@
             transform: rotateY(-85deg) scale(0.85);
             transform-origin: left center;
             transition: opacity 1.2s ease,
-                        transform 1.6s cubic-bezier(0.23, 1, 0.32, 1),
-                        filter 1.2s ease;
+                        transform 1.6s cubic-bezier(0.23, 1, 0.32, 1);
             padding: 60px 0;
             z-index: 5;
         }
@@ -161,7 +141,7 @@
             padding: 40px;
             max-width: 1200px;
             margin: 0 auto;
-            text-align: left; /* Inhalt bleibt lesbar */
+            text-align: center;
         }
 
         .page {
@@ -176,17 +156,10 @@
             color: var(--text);
             border: 1px solid rgba(184,164,214,0.25);
             position: relative;
+            text-align: center;
         }
 
-        .page.left {
-            border-right: 2px solid rgba(184,164,214,0.3);
-        }
-
-        .page.right {
-            border-left: 2px solid rgba(184,164,214,0.3);
-        }
-
-        /* --- Sichtbare Seitenkanten direkt am Rand --- */
+        /* Seitenkanten */
         .page.left::after,
         .page.right::before {
             content: "";
@@ -202,41 +175,40 @@
                 rgba(0,0,0,0.35) 4px
             );
             opacity: 0.55;
-            pointer-events: none;
             filter: blur(0.3px);
         }
 
         .page.left::after { right: 0; }
         .page.right::before { left: 0; }
 
-        /* Typografie */
+        /* Titel */
+        .book-title {
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--accent);
+            text-shadow: 0 0 12px var(--accent-soft);
+            letter-spacing: 3px;
+        }
+
+        /* Ornamente */
+        .ornament {
+            font-size: 2rem;
+            color: var(--accent);
+            opacity: 0.7;
+            margin: 20px 0;
+            text-shadow: 0 0 8px var(--accent-soft);
+        }
+
+        /* Kapitelüberschriften */
         .section-title {
-            font-size: 2.2rem;
+            font-size: 2rem;
             margin-top: 25px;
             margin-bottom: 15px;
             color: var(--accent);
             text-shadow: 0 0 8px var(--accent-soft);
-            text-align: center;
         }
 
-        .divider {
-            text-align: center;
-            margin: 25px 0;
-            font-size: 1.6rem;
-            opacity: 0.6;
-            color: var(--accent);
-            text-shadow: 0 0 6px var(--accent-soft);
-        }
-
-        .crest {
-            font-size: 2.4rem;
-            text-align: center;
-            margin-bottom: 25px;
-            color: var(--accent);
-            text-shadow: 0 0 10px var(--accent-soft);
-        }
-
-        /* Nebenpassagen kleiner */
         .small {
             font-size: 0.9rem;
             opacity: 0.75;
@@ -246,7 +218,6 @@
 
 <body>
 
-    <!-- Nebel -->
     <div id="fog-layer"></div>
 
     <!-- LOGIN -->
@@ -305,6 +276,12 @@
                 .then(html => {
                     const content = document.getElementById("content");
                     content.innerHTML = html;
+
+                    /* Titel + Ornament automatisch einfügen */
+                    content.innerHTML =
+                        `<div class='book-title'>Das Skelett, das Vögelchen und die Nixe</div>
+                         <div class='ornament'>✦ ✧ ✦</div>` +
+                        content.innerHTML;
 
                     content.style.visibility = "visible";
                     content.style.opacity = "1";
