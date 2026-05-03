@@ -32,7 +32,7 @@
             text-align: center;
         }
 
-        /* --- Nebel-Animation (neue funktionierende Version) --- */
+        /* --- Nebel-Animation (stabil, kein Fehlerbild) --- */
         #fog-layer {
             position: fixed;
             inset: 0;
@@ -181,25 +181,6 @@
         .page.left::after { right: 0; }
         .page.right::before { left: 0; }
 
-        /* Titel */
-        .book-title {
-            font-family: 'Cinzel', serif;
-            font-size: 3rem;
-            margin-bottom: 20px;
-            color: var(--accent);
-            text-shadow: 0 0 12px var(--accent-soft);
-            letter-spacing: 3px;
-        }
-
-        /* Ornamente */
-        .ornament {
-            font-size: 2rem;
-            color: var(--accent);
-            opacity: 0.7;
-            margin: 20px 0;
-            text-shadow: 0 0 8px var(--accent-soft);
-        }
-
         /* Kapitelüberschriften */
         .section-title {
             font-size: 2rem;
@@ -209,6 +190,17 @@
             text-shadow: 0 0 8px var(--accent-soft);
         }
 
+        /* Ornamente */
+        .divider {
+            text-align: center;
+            margin: 25px 0;
+            font-size: 1.6rem;
+            opacity: 0.7;
+            color: var(--accent);
+            text-shadow: 0 0 6px var(--accent-soft);
+        }
+
+        /* Footer kleiner */
         .small {
             font-size: 0.9rem;
             opacity: 0.75;
@@ -276,12 +268,6 @@
                 .then(html => {
                     const content = document.getElementById("content");
                     content.innerHTML = html;
-
-                    /* Titel + Ornament automatisch einfügen */
-                    content.innerHTML =
-                        `<div class='book-title'>Das Skelett, das Vögelchen und die Nixe</div>
-                         <div class='ornament'>✦ ✧ ✦</div>` +
-                        content.innerHTML;
 
                     content.style.visibility = "visible";
                     content.style.opacity = "1";
