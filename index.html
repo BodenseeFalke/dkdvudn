@@ -154,7 +154,37 @@
         .page.right {
             border-left: 2px solid rgba(184,164,214,0.3);
         }
+/* --- Sichtbare Seitenkanten (Buchblock) --- */
 
+.page.left::before,
+.page.right::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 14px;
+    height: 100%;
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.08) 0px,
+        rgba(255,255,255,0.08) 2px,
+        rgba(0,0,0,0.15) 3px,
+        rgba(0,0,0,0.15) 4px
+    );
+    opacity: 0.35;
+    pointer-events: none;
+}
+
+/* Linke Seite – Seitenkante rechts */
+.page.left::before {
+    right: -14px;
+    border-right: 1px solid rgba(255,255,255,0.05);
+}
+
+/* Rechte Seite – Seitenkante links */
+.page.right::after {
+    left: -14px;
+    border-left: 1px solid rgba(255,255,255,0.05);
+}
         .section-title {
             font-size: 1.8rem;
             margin-top: 25px;
