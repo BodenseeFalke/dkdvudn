@@ -3,26 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <title>Das Skelett, das Vögelchen und die Nixe</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #e9e4d8;
+            --fg: #1f1b18;
+            --accent: #5a524c;
+
+            --paper-closed: url('https://www.transparenttextures.com/patterns/aged-paper.png');
+            --paper-open: url('https://www.transparenttextures.com/patterns/old-wall.png');
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            padding: 60px 0;
+            font-family: 'Cormorant Garamond', serif;
+            background: var(--bg);
+            color: var(--fg);
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            perspective: 2000px;
+            overflow-x: hidden;
+        }
+
+        /* LOGIN OVERLAY */
+        #login-overlay {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at top, rgba(0,0,0,0.65), rgba(0,0,0,0.9));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .login-box {
+            background: #f7f4e9;
+            background-image: var(--paper-closed);
+            padding: 40px 50px;
+            border: 4px double rgba(240, 230, 210, 0.9);
+            box-shadow: 0 0 40px rgba(0,0,0,0.6);
+            max-width: 420px;
+            width: 90%;
+            position: relative;
+        }
+
+        .login-crest {
+            font-size: 2.4rem;
+            margin-bottom: 1rem;
+            letter-spacing: 0.7rem;
+        }
+
+        .login-title {
+            font-size: 1.8rem;
+            margin-bottom: 0.6rem;
+            font-weight: 600;
+        }
+
+        .login-sub {
+            font-size: 1.1rem;
+            margin-bottom: 1.6rem;
+            opacity: 0.9;
+            white-space: pre-line;
+        }
+
+        .login-field { margin-bottom: 1rem; text-align: left; }
+        .login-field label { display: block; margin-bottom: 0.2rem; font-size: 1.05rem; }
+
+        .login-field input {
+            width: 100%;
+            padding: 8px 10px;
+            border-radius: 4px;
+            border: 1px solid rgba(40, 30, 20, 0.4);
+            background: #fdfaf2;
+            font-size: 1.05rem;
+        }
+
+        .login-button {
+            margin-top: 0.8rem;
+            padding: 8px 22px;
+            font-size: 1.1rem;
+            border-radius: 4px;
+            border: 1px solid rgba(40, 30, 20, 0.7);
+            background: #e0d2b8;
+            cursor: pointer;
+        }
+
+        .login-button:hover { background: #d4c4a6; }
+
+        .login-error {
+            margin-top: 0.8rem;
+            color: #7b2b2b;
+            font-size: 0.95rem;
+            min-height: 1.2em;
+        }
+
+        /* BUCH-INHALT (wird später geladen) */
+        #content {
+            visibility: hidden;
+            opacity: 0;
+            pointer-events: none;
+            transform: rotateY(-85deg) scale(0.85);
+            transform-origin: left center;
+            transition: opacity 1.2s ease,
+                        transform 1.6s cubic-bezier(0.23, 1, 0.32, 1),
+                        filter 1.2s ease;
+        }
+    </style>
 </head>
 
 <body>
 
-    <!-- LOGIN OVERLAY -->
+    <!-- LOGIN -->
     <div id="login-overlay">
-        <div id="login-box">
-            <h2>Login</h2>
-            <input id="user" type="text" placeholder="Benutzername">
-            <input id="pw" type="password" placeholder="Passwort">
-            <button id="login-button">Einloggen</button>
-            <p id="login-error" style="color:red;"></p>
+        <div class="login-box">
+            <div class="login-crest">🦴 🐦 🧜‍♀️</div>
+            <div class="login-title">Geheimer Zugang</div>
+            <div class="login-sub">
+                Bitte gib den Benutzernamen ein, um das Abenteuer zu beginnen.
+                Das Passwort sollte einfach sein.
+            </div>
+
+            <div class="login-field">
+                <label for="user">Benutzername</label>
+                <input type="text" id="user" autocomplete="off">
+            </div>
+
+            <div class="login-field">
+                <label for="pw">Passwort</label>
+                <input type="password" id="pw">
+            </div>
+
+            <button id="login-button" class="login-button">Betreten</button>
+            <div id="login-error" class="login-error"></div>
         </div>
     </div>
 
-    <!-- BUCH-INHALT (wird später per fetch geladen) -->
-    <div id="content" style="visibility:hidden; opacity:0; pointer-events:none; transform:rotateY(-85deg) scale(0.85);">
-        <!-- Wird dynamisch aus content.html geladen -->
-    </div>
+    <!-- BUCH-INHALT (leer, wird nachgeladen) -->
+    <div id="content"></div>
 
     <script>
     async function sha256(str) {
@@ -44,17 +169,14 @@
 
         if (userHash === validUserHash && pwHash === validPwHash) {
 
-            // Overlay ausblenden
             document.getElementById("login-overlay").style.display = "none";
 
-            // Inhalt aus externer Datei laden
             fetch("content.html")
                 .then(r => r.text())
                 .then(html => {
-                    document.getElementById("content").innerHTML = html;
-
-                    // Buch sichtbar machen + Animation starten
                     const content = document.getElementById("content");
+                    content.innerHTML = html;
+
                     content.classList.add("open");
                     content.style.visibility = "visible";
                     content.style.opacity = "1";
