@@ -145,6 +145,7 @@
             line-height: 1.7;
             color: var(--text);
             border: 1px solid rgba(184,164,214,0.25);
+            position: relative; /* WICHTIG für Seitenkanten */
         }
 
         .page.left {
@@ -154,38 +155,32 @@
         .page.right {
             border-left: 2px solid rgba(184,164,214,0.3);
         }
-/* --- Sichtbare Seitenkanten (Gothic-Nebel) --- */
 
-.page.left::before,
-.page.right::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    width: 18px;
-    height: 100%;
-    background: repeating-linear-gradient(
-        to bottom,
-        rgba(255,255,255,0.12) 0px,
-        rgba(255,255,255,0.12) 2px,
-        rgba(0,0,0,0.4) 3px,
-        rgba(0,0,0,0.4) 4px
-    );
-    opacity: 0.55;
-    pointer-events: none;
-    filter: blur(0.3px);
-}
+        /* --- Sichtbare Seitenkanten direkt am Rand --- */
+        .page.left::after,
+        .page.right::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            height: 100%;
+            width: 10px;
 
-/* Linke Seite – Kante rechts */
-.page.left::before {
-    right: -18px;
-    border-right: 1px solid rgba(255,255,255,0.15);
-}
+            background: repeating-linear-gradient(
+                to bottom,
+                rgba(255,255,255,0.10) 0px,
+                rgba(255,255,255,0.10) 2px,
+                rgba(0,0,0,0.35) 3px,
+                rgba(0,0,0,0.35) 4px
+            );
 
-/* Rechte Seite – Kante links */
-.page.right::after {
-    left: -18px;
-    border-left: 1px solid rgba(255,255,255,0.15);
-}
+            opacity: 0.55;
+            pointer-events: none;
+            filter: blur(0.3px);
+        }
+
+        .page.left::after { right: 0; }
+        .page.right::before { left: 0; }
+
         .section-title {
             font-size: 1.8rem;
             margin-top: 25px;
