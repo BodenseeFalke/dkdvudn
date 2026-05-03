@@ -206,6 +206,26 @@
             color: var(--accent);
             text-shadow: 0 0 10px var(--accent-soft);
         }
+   /* --- Nebel-Animation --- */
+
+#fog-layer {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+
+    background: url('https://i.imgur.com/8fK4h8F.png'); /* sehr weicher Nebel */
+    background-size: 200% 200%;
+    opacity: 0.18;
+
+    animation: fogMove 45s ease-in-out infinite;
+}
+
+@keyframes fogMove {
+    0%   { background-position: 0% 0%; }
+    50%  { background-position: 100% 100%; }
+    100% { background-position: 0% 0%; }
+}
     </style>
 </head>
 
