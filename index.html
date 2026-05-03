@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -16,6 +16,7 @@
             --paper: #2b2b31;
             --paper-light: #34343a;
             --text: #e6e0d8;
+            --text-soft: #cfc8bf;
             --accent: #b8a4d6;
             --accent-soft: rgba(184,164,214,0.25);
         }
@@ -29,8 +30,26 @@
             background: var(--bg-gradient);
             color: var(--text);
             overflow-x: hidden;
+            text-align: center; /* Eleganter Märchenbuch-Stil */
         }
-<div id="fog-layer"></div>
+
+        /* --- Nebel-Animation --- */
+        #fog-layer {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+            background: url('https://i.imgur.com/8fK4h8F.png');
+            background-size: 200% 200%;
+            opacity: 0.18;
+            animation: fogMove 45s ease-in-out infinite;
+        }
+
+        @keyframes fogMove {
+            0%   { background-position: 0% 0%; }
+            50%  { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
+        }
 
         /* LOGIN OVERLAY */
         #login-overlay {
@@ -48,11 +67,11 @@
             max-width: 420px;
             width: 90%;
             color: var(--text);
-
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+            text-align: center;
         }
 
         .login-crest {
@@ -77,8 +96,16 @@
             white-space: pre-line;
         }
 
-        .login-field { margin-bottom: 1rem; text-align: left; }
-        .login-field label { display: block; margin-bottom: 0.2rem; font-size: 1.05rem; }
+        .login-field {
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+
+        .login-field label {
+            display: block;
+            margin-bottom: 0.2rem;
+            font-size: 1.05rem;
+        }
 
         .login-field input {
             width: 100%;
@@ -123,6 +150,7 @@
                         transform 1.6s cubic-bezier(0.23, 1, 0.32, 1),
                         filter 1.2s ease;
             padding: 60px 0;
+            z-index: 5;
         }
 
         /* Buchseiten */
@@ -133,6 +161,7 @@
             padding: 40px;
             max-width: 1200px;
             margin: 0 auto;
+            text-align: left; /* Inhalt bleibt lesbar */
         }
 
         .page {
@@ -146,7 +175,7 @@
             line-height: 1.7;
             color: var(--text);
             border: 1px solid rgba(184,164,214,0.25);
-            position: relative; /* WICHTIG für Seitenkanten */
+            position: relative;
         }
 
         .page.left {
@@ -165,7 +194,6 @@
             top: 0;
             height: 100%;
             width: 10px;
-
             background: repeating-linear-gradient(
                 to bottom,
                 rgba(255,255,255,0.10) 0px,
@@ -173,7 +201,6 @@
                 rgba(0,0,0,0.35) 3px,
                 rgba(0,0,0,0.35) 4px
             );
-
             opacity: 0.55;
             pointer-events: none;
             filter: blur(0.3px);
@@ -182,12 +209,14 @@
         .page.left::after { right: 0; }
         .page.right::before { left: 0; }
 
+        /* Typografie */
         .section-title {
-            font-size: 1.8rem;
+            font-size: 2.2rem;
             margin-top: 25px;
             margin-bottom: 15px;
             color: var(--accent);
             text-shadow: 0 0 8px var(--accent-soft);
+            text-align: center;
         }
 
         .divider {
@@ -206,30 +235,19 @@
             color: var(--accent);
             text-shadow: 0 0 10px var(--accent-soft);
         }
-   /* --- Nebel-Animation --- */
 
-#fog-layer {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 1;
-
-    background: url('https://i.imgur.com/8fK4h8F.png'); /* sehr weicher Nebel */
-    background-size: 200% 200%;
-    opacity: 0.18;
-
-    animation: fogMove 45s ease-in-out infinite;
-}
-
-@keyframes fogMove {
-    0%   { background-position: 0% 0%; }
-    50%  { background-position: 100% 100%; }
-    100% { background-position: 0% 0%; }
-}
+        /* Nebenpassagen kleiner */
+        .small {
+            font-size: 0.9rem;
+            opacity: 0.75;
+        }
     </style>
 </head>
 
 <body>
+
+    <!-- Nebel -->
+    <div id="fog-layer"></div>
 
     <!-- LOGIN -->
     <div id="login-overlay">
