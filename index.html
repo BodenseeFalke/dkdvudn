@@ -173,6 +173,7 @@
         if (userHash === validUserHash && pwHash === validPwHash) {
 
             document.getElementById("login-overlay").style.display = "none";
+            window.scrollTo(0, 0);
 
             fetch("content.html")
                 .then(r => r.text())
