@@ -1,292 +1,136 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <title>Das Skelett, das Vögelchen und die Nixe</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
-
-    <style>
-        :root {
-            --bg: #1a1a1d;
-            --bg-gradient: radial-gradient(circle at top, #2a2a30, #0f0f12 70%);
-            --paper: #2b2b31;
-            --paper-light: #34343a;
-            --text: #e6e0d8;
-            --text-soft: #cfc8bf;
-            --accent: #b8a4d6;
-            --accent-soft: rgba(184,164,214,0.25);
-        }
-
-        * { box-sizing: border-box; }
-
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Cormorant Garamond', serif;
-            background: var(--bg-gradient);
-            color: var(--text);
-            overflow-x: hidden;
-            text-align: center;
-        }
-
-        /* --- Nebel-Animation (stabil, kein Fehlerbild) --- */
-        #fog-layer {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 1;
-            background: url('https://raw.githubusercontent.com/microsoft/fluentui/master/packages/react-components/react-components/src/stories/assets/fog.png');
-            background-size: 200% 200%;
-            opacity: 0.22;
-            animation: fogMove 55s ease-in-out infinite;
-        }
-
-        @keyframes fogMove {
-            0%   { background-position: 0% 0%; }
-            50%  { background-position: 100% 100%; }
-            100% { background-position: 0% 0%; }
-        }
-
-        /* LOGIN OVERLAY */
-        #login-overlay {
-            position: fixed;
-            inset: 0;
-            background: radial-gradient(circle at top, rgba(0,0,0,0.7), rgba(0,0,0,0.95));
-            z-index: 9999;
-        }
-
-        .login-box {
-            background: var(--paper-light);
-            padding: 40px 50px;
-            border: 2px solid rgba(184,164,214,0.4);
-            box-shadow: 0 0 40px rgba(0,0,0,0.7);
-            max-width: 420px;
-            width: 90%;
-            color: var(--text);
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-        }
-
-        .login-crest {
-            font-size: 2.4rem;
-            margin-bottom: 1rem;
-            letter-spacing: 0.7rem;
-            color: var(--accent);
-            text-shadow: 0 0 10px var(--accent-soft);
-        }
-
-        .login-title {
-    font-family: 'Cinzel', serif;
-    font-size: 2.1rem;
-    letter-spacing: 1px;
-    margin-bottom: 0.8rem;
-    font-weight: 600;
-    color: var(--accent);
-    text-shadow: 0 0 12px var(--accent-soft);
-        }
-
-        .login-sub {
-            font-size: 1.1rem;
-            margin-bottom: 1.6rem;
-            opacity: 0.9;
-            white-space: pre-line;
-        }
-
-        .login-field {
-            margin-bottom: 1rem;
-            text-align: left;
-        }
-
-        .login-field input {
-            width: 100%;
-            padding: 8px 10px;
-            border-radius: 4px;
-            border: 1px solid rgba(184,164,214,0.4);
-            background: #1f1f23;
-            color: var(--text);
-        }
-
-        .login-button {
-            margin-top: 0.8rem;
-            padding: 8px 22px;
-            font-size: 1.1rem;
-            border-radius: 4px;
-            border: 1px solid rgba(184,164,214,0.6);
-            background: #2f2f36;
-            color: var(--text);
-            cursor: pointer;
-        }
-
-        /* BUCH-INHALT */
-        #content {
-            visibility: hidden;
-            opacity: 0;
-            pointer-events: none;
-            transform: rotateY(-85deg) scale(0.85);
-            transform-origin: left center;
-            transition: opacity 1.2s ease,
-                        transform 1.6s cubic-bezier(0.23, 1, 0.32, 1);
-            padding: 60px 0;
-            z-index: 5;
-        }
-
-        /* Buchseiten */
-        .spread {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            padding: 40px;
-            max-width: 1200px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .page {
-            width: 48%;
-            background: var(--paper);
-            padding: 35px;
-            border-radius: 6px;
-            box-shadow:
-                0 0 25px rgba(0,0,0,0.7),
-                inset 0 0 20px rgba(0,0,0,0.5);
-            line-height: 1.7;
-            color: var(--text);
-            border: 1px solid rgba(184,164,214,0.25);
-            position: relative;
-            text-align: center;
-        }
-
-        /* Seitenkanten */
-        .page.left::after,
-        .page.right::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            height: 100%;
-            width: 10px;
-            background: repeating-linear-gradient(
-                to bottom,
-                rgba(255,255,255,0.10) 0px,
-                rgba(255,255,255,0.10) 2px,
-                rgba(0,0,0,0.35) 3px,
-                rgba(0,0,0,0.35) 4px
-            );
-            opacity: 0.55;
-            filter: blur(0.3px);
-        }
-
-        .page.left::after { right: 0; }
-        .page.right::before { left: 0; }
-
-        /* Kapitelüberschriften */
-        .section-title {
-            font-size: 2rem;
-            margin-top: 25px;
-            margin-bottom: 15px;
-            color: var(--accent);
-            text-shadow: 0 0 8px var(--accent-soft);
-        }
-
-        /* Ornamente */
-        .divider {
-            text-align: center;
-            margin: 25px 0;
-            font-size: 1.6rem;
-            opacity: 0.7;
-            color: var(--accent);
-            text-shadow: 0 0 6px var(--accent-soft);
-        }
-
-        /* Footer kleiner */
-        .small {
-            font-size: 0.9rem;
-            opacity: 0.75;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Das Skelett, das Vögelchen und die Nixe</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #050608;
+      color: #f5f0e6;
+      font-family: "Georgia", "Times New Roman", serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .book {
+      width: 90%;
+      max-width: 900px;
+      background: #111318;
+      border-radius: 12px;
+      box-shadow: 0 0 40px rgba(0,0,0,0.8);
+      padding: 40px 50px;
+      border: 1px solid #3b2b1a;
+      position: relative;
+      overflow: hidden;
+    }
+    .book::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border: 1px solid rgba(255,255,255,0.06);
+      pointer-events: none;
+      border-radius: 10px;
+    }
+    .title {
+      text-align: center;
+      font-size: 1.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .content {
+      font-size: 1rem;
+      line-height: 1.6;
+      white-space: pre-wrap;
+    }
+    .status {
+      margin-top: 1.5rem;
+      font-size: 0.9rem;
+      color: #b89b6d;
+      text-align: center;
+    }
+  </style>
 </head>
-
 <body>
-
-    <div id="fog-layer"></div>
-
-    <!-- LOGIN -->
-    <div id="login-overlay">
-        <div class="login-box">
-            <div class="login-crest">🦴 🐦 🧜‍♀️</div>
-            <div class="login-title">Das Skelett, das Vögelchen &amp; die Nixe</div>
-            <div class="login-sub">
-                Bitte gib den Benutzernamen ein, um das Abenteuer zu beginnen.
-                Das Passwort sollte einfach sein.
-            </div>
-
-            <div class="login-field">
-                <label for="user">Benutzername</label>
-                <input type="text" id="user" autocomplete="off">
-            </div>
-
-            <div class="login-field">
-                <label for="pw">Passwort</label>
-                <input type="password" id="pw">
-            </div>
-
-            <button id="login-button" class="login-button">Betreten</button>
-            <div id="login-error" class="login-error"></div>
-        </div>
+  <div class="book">
+    <div class="title">Das Skelett, das Vögelchen und die Nixe</div>
+    <div id="content" class="content">
+      Inhalt wird entschlüsselt …
     </div>
+    <div id="status" class="status"></div>
+  </div>
 
-    <!-- BUCH-INHALT -->
-    <div id="content"></div>
+  <script>
+    // Dein AES‑256‑GCM‑Schlüssel (Base64) aus key.txt
+    const KEY_B64 = "3SPjvrvoZ+j44ekX8V6bn4Ko+V+BrSvC9ihv/2iY7ro=";
 
-    <script>
-    async function sha256(str) {
-        const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(str));
-        return Array.from(new Uint8Array(buf))
-            .map(b => b.toString(16).padStart(2, "0"))
-            .join("");
+    function base64ToBytes(b64) {
+      const bin = atob(b64);
+      const len = bin.length;
+      const bytes = new Uint8Array(len);
+      for (let i = 0; i < len; i++) {
+        bytes[i] = bin.charCodeAt(i);
+      }
+      return bytes;
     }
 
-    async function checkLogin() {
-        const userInput = document.getElementById("user").value.trim();
-        const pwInput = document.getElementById("pw").value.trim();
-
-        const userHash = await sha256(userInput);
-        const pwHash = await sha256(pwInput);
-
-        const validUserHash = "05d27d804fa2eab1dc6d2257b71e4d4dee299d0325794dc5f8e07eab40b672a3";
-        const validPwHash = "92b9907fe97032befd467899d5d75fe14ad36a663f6a8b22679e2f096accd18a";
-
-        if (userHash === validUserHash && pwHash === validPwHash) {
-
-            window.scrollTo(0, 0);
-            document.getElementById("login-overlay").style.display = "none";
-
-            fetch("content.html")
-                .then(r => r.text())
-                .then(html => {
-                    const content = document.getElementById("content");
-                    content.innerHTML = html;
-
-                    content.style.visibility = "visible";
-                    content.style.opacity = "1";
-                    content.style.pointerEvents = "auto";
-                    content.style.transform = "rotateY(0deg) scale(1)";
-                });
-
-        } else {
-            document.getElementById("login-error").textContent =
-                "Benutzername oder Passwort ist falsch.";
-        }
+    function concatUint8(a, b) {
+      const c = new Uint8Array(a.length + b.length);
+      c.set(a, 0);
+      c.set(b, a.length);
+      return c;
     }
 
-    document.getElementById("login-button").addEventListener("click", checkLogin);
-    document.addEventListener("keydown", e => { if (e.key === "Enter") checkLogin(); });
-    </script>
+    async function decryptContent() {
+      const contentEl = document.getElementById("content");
+      const statusEl = document.getElementById("status");
 
+      try {
+        statusEl.textContent = "Lade verschlüsselten Inhalt …";
+
+        const res = await fetch("content.enc", { cache: "no-store" });
+        if (!res.ok) throw new Error("content.enc konnte nicht geladen werden");
+        const enc = await res.json();
+
+        const keyBytes = base64ToBytes(KEY_B64);
+        const iv = base64ToBytes(enc.iv);
+        const tag = base64ToBytes(enc.tag);
+        const data = base64ToBytes(enc.data);
+
+        // WebCrypto erwartet Ciphertext + Tag am Ende
+        const cipherWithTag = concatUint8(data, tag);
+
+        const cryptoKey = await crypto.subtle.importKey(
+          "raw",
+          keyBytes,
+          { name: "AES-GCM" },
+          false,
+          ["decrypt"]
+        );
+
+        const plainBuf = await crypto.subtle.decrypt(
+          { name: "AES-GCM", iv },
+          cryptoKey,
+          cipherWithTag
+        );
+
+        const decoder = new TextDecoder("utf-8");
+        const html = decoder.decode(plainBuf);
+
+        contentEl.innerHTML = html;
+        statusEl.textContent = "";
+      } catch (err) {
+        console.error(err);
+        statusEl.textContent = "Fehler beim Entschlüsseln des Inhalts.";
+        contentEl.textContent = "";
+      }
+    }
+
+    decryptContent();
+  </script>
 </body>
 </html>
