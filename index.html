@@ -249,6 +249,7 @@
     function tryLogin() {
       const user = document.getElementById("user").value.trim();
       const pass = document.getElementById("pass").value.trim();
+ladeGeheimenInhalt();
 
       if (user === "Johann" && pass === "einfach") {
         loginOverlay.style.display = "none";
