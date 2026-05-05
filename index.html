@@ -11,14 +11,18 @@
       background: #050608;
       color: #f5f0e6;
       font-family: "Georgia", "Times New Roman", serif;
+      min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
     }
-    .book {
+
+    .login-wrapper, .book-wrapper {
       width: 90%;
       max-width: 900px;
+    }
+
+    .panel {
       background: #111318;
       border-radius: 12px;
       box-shadow: 0 0 40px rgba(0,0,0,0.8);
@@ -27,7 +31,8 @@
       position: relative;
       overflow: hidden;
     }
-    .book::before {
+
+    .panel::before {
       content: "";
       position: absolute;
       inset: 0;
@@ -35,6 +40,7 @@
       pointer-events: none;
       border-radius: 10px;
     }
+
     .title {
       text-align: center;
       font-size: 1.8rem;
@@ -42,30 +48,122 @@
       text-transform: uppercase;
       margin-bottom: 1.5rem;
     }
+
+    .login-fields {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    label {
+      font-size: 0.95rem;
+      color: #d6c4a3;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 0.6rem 0.8rem;
+      border-radius: 6px;
+      border: 1px solid #3b2b1a;
+      background: #050608;
+      color: #f5f0e6;
+      font-family: inherit;
+      font-size: 0.95rem;
+    }
+
+    button {
+      margin-top: 1rem;
+      padding: 0.7rem 1.4rem;
+      border-radius: 6px;
+      border: 1px solid #b89b6d;
+      background: #2a2016;
+      color: #f5f0e6;
+      font-family: inherit;
+      font-size: 0.95rem;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #3a2a18;
+    }
+
+    .login-status {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: #c46b6b;
+      min-height: 1.2em;
+    }
+
+    .book {
+      padding: 0;
+    }
+
+    .book-title {
+      text-align: center;
+      font-size: 1.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+
     .content {
       font-size: 1rem;
       line-height: 1.6;
       white-space: pre-wrap;
     }
+
     .status {
       margin-top: 1.5rem;
       font-size: 0.9rem;
       color: #b89b6d;
       text-align: center;
     }
+
+    .book-wrapper {
+      display: none;
+    }
   </style>
 </head>
 <body>
-  <div class="book">
-    <div class="title">Das Skelett, das Vögelchen und die Nixe</div>
-    <div id="content" class="content">
-      Inhalt wird entschlüsselt …
+  <!-- Login-Bereich -->
+  <div class="login-wrapper">
+    <div class="panel">
+      <div class="title">Zutritt zum geheimen Buch</div>
+      <div>Bitte Zugangsdaten eingeben.</div>
+      <div class="login-fields">
+        <div>
+          <label for="user">Benutzername</label>
+          <input id="user" type="text" autocomplete="off">
+        </div>
+        <div>
+          <label for="pass">Passwort</label>
+          <input id="pass" type="password" autocomplete="off">
+        </div>
+        <button id="loginBtn">Öffnen</button>
+        <div id="loginStatus" class="login-status"></div>
+      </div>
     </div>
-    <div id="status" class="status"></div>
+  </div>
+
+  <!-- Buch-Bereich -->
+  <div class="book-wrapper">
+    <div class="panel book">
+      <div class="book-title">Das Skelett, das Vögelchen und die Nixe</div>
+      <div id="content" class="content">
+        Inhalt wird entschlüsselt …
+      </div>
+      <div id="status" class="status"></div>
+    </div>
   </div>
 
   <script>
-    // Dein AES‑256‑GCM‑Schlüssel (Base64) aus key.txt
+    // Feste Zugangsdaten
+    const VALID_USER = "Johann";
+    const VALID_PASS = "einfach";
+
+    // AES‑256‑GCM‑Schlüssel (Base64) aus key.txt
     const KEY_B64 = "3SPjvrvoZ+j44ekX8V6bn4Ko+V+BrSvC9ihv/2iY7ro=";
 
     function base64ToBytes(b64) {
@@ -101,7 +199,6 @@
         const tag = base64ToBytes(enc.tag);
         const data = base64ToBytes(enc.data);
 
-        // WebCrypto erwartet Ciphertext + Tag am Ende
         const cipherWithTag = concatUint8(data, tag);
 
         const cryptoKey = await crypto.subtle.importKey(
@@ -130,7 +227,34 @@
       }
     }
 
-    decryptContent();
+    // Login-Logik
+    const loginBtn = document.getElementById("loginBtn");
+    const userInput = document.getElementById("user");
+    const passInput = document.getElementById("pass");
+    const loginStatus = document.getElementById("loginStatus");
+    const loginWrapper = document.querySelector(".login-wrapper");
+    const bookWrapper = document.querySelector(".book-wrapper");
+
+    function tryLogin() {
+      const u = userInput.value.trim();
+      const p = passInput.value;
+
+      if (u === VALID_USER && p === VALID_PASS) {
+        loginStatus.textContent = "";
+        loginWrapper.style.display = "none";
+        bookWrapper.style.display = "block";
+        decryptContent();
+      } else {
+        loginStatus.textContent = "Benutzername oder Passwort falsch.";
+      }
+    }
+
+    loginBtn.addEventListener("click", tryLogin);
+    passInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        tryLogin();
+      }
+    });
   </script>
 </body>
 </html>
