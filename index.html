@@ -1,312 +1,292 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>Das Skelett, das Vögelchen und die Nixe</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Das Skelett, das Vögelchen & die Nixe</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">
 
-  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #1a1a1d;
+            --bg-gradient: radial-gradient(circle at top, #2a2a30, #0f0f12 70%);
+            --paper: #2b2b31;
+            --paper-light: #34343a;
+            --text: #e6e0d8;
+            --text-soft: #cfc8bf;
+            --accent: #b8a4d6;
+            --accent-soft: rgba(184,164,214,0.25);
+        }
 
-  <style>
-    :root {
-      --bg-gradient: linear-gradient(180deg, #0d0d11, #1a1a1f);
-      --paper: #2b2b31;
-      --paper-light: #34343a;
-      --text: #e6e0d8;
-      --text-soft: #cfc8bf;
-      --accent: #b8a4d6;
-      --accent-soft: rgba(184,164,214,0.25);
-    }
+        * { box-sizing: border-box; }
 
-    body {
-      margin: 0;
-      padding: 0;
-      background: var(--bg-gradient);
-      color: var(--text);
-      font-family: "Crimson Pro", serif;
-      overflow-x: hidden;
-      text-align: center;
-    }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Cormorant Garamond', serif;
+            background: var(--bg-gradient);
+            color: var(--text);
+            overflow-x: hidden;
+            text-align: center;
+        }
 
-    /* --- Nebel-Animation --- */
-    #fog-layer {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 1;
-      background: url('https://i.imgur.com/8fK4h8F.png');
-      background-size: 200% 200%;
-      opacity: 0.18;
-      animation: fogMove 45s ease-in-out infinite;
-    }
+        /* --- Nebel-Animation (stabil, kein Fehlerbild) --- */
+        #fog-layer {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+            background: url('https://raw.githubusercontent.com/microsoft/fluentui/master/packages/react-components/react-components/src/stories/assets/fog.png');
+            background-size: 200% 200%;
+            opacity: 0.22;
+            animation: fogMove 55s ease-in-out infinite;
+        }
 
-    @keyframes fogMove {
-      0% { background-position: 0% 0%; }
-      50% { background-position: 100% 100%; }
-      100% { background-position: 0% 0%; }
-    }
+        @keyframes fogMove {
+            0%   { background-position: 0% 0%; }
+            50%  { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
+        }
 
-    /* LOGIN OVERLAY */
-    #login-overlay {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(20,20,25,0.85);
-      padding: 40px;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.08);
-      box-shadow: 0 0 40px rgba(0,0,0,0.6);
-      max-width: 420px;
-      width: 90%;
-      color: var(--text);
-      text-align: center;
-      z-index: 5;
-    }
+        /* LOGIN OVERLAY */
+        #login-overlay {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at top, rgba(0,0,0,0.7), rgba(0,0,0,0.95));
+            z-index: 9999;
+        }
 
-    .login-crest {
-      font-size: 2rem;
-      color: var(--accent);
-      margin-bottom: 10px;
-      text-shadow: 0 0 10px var(--accent-soft);
-    }
+        .login-box {
+            background: var(--paper-light);
+            padding: 40px 50px;
+            border: 2px solid rgba(184,164,214,0.4);
+            box-shadow: 0 0 40px rgba(0,0,0,0.7);
+            max-width: 420px;
+            width: 90%;
+            color: var(--text);
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
 
-    .login-title {
-      font-size: 1.4rem;
-      margin-bottom: 20px;
-      color: var(--text-soft);
-      white-space: pre-line;
-    }
+        .login-crest {
+            font-size: 2.4rem;
+            margin-bottom: 1rem;
+            letter-spacing: 0.7rem;
+            color: var(--accent);
+            text-shadow: 0 0 10px var(--accent-soft);
+        }
 
-    .login-field {
-      margin-bottom: 1rem;
-      text-align: left;
-    }
+        .login-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2.1rem;
+    letter-spacing: 1px;
+    margin-bottom: 0.8rem;
+    font-weight: 600;
+    color: var(--accent);
+    text-shadow: 0 0 12px var(--accent-soft);
+        }
 
-    .login-field label {
-      display: block;
-      margin-bottom: 0.2rem;
-      font-size: 1.05rem;
-    }
+        .login-sub {
+            font-size: 1.1rem;
+            margin-bottom: 1.6rem;
+            opacity: 0.9;
+            white-space: pre-line;
+        }
 
-    .login-field input {
-      width: 100%;
-      padding: 0.6rem 0.8rem;
-      border-radius: 6px;
-      border: 1px solid #3b2b1a;
-      background: #0d0e10;
-      color: #f5f0e6;
-      font-family: inherit;
-      font-size: 0.95rem;
-    }
+        .login-field {
+            margin-bottom: 1rem;
+            text-align: left;
+        }
 
-    .login-button {
-      margin-top: 1rem;
-      padding: 0.7rem 1.4rem;
-      border-radius: 6px;
-      border: 1px solid var(--accent);
-      background: linear-gradient(180deg, #3a2a18, #2a2016);
-      color: #f5f0e6;
-      font-family: inherit;
-      font-size: 0.95rem;
-      cursor: pointer;
-      font-weight: bold;
-      letter-spacing: 0.05em;
-      width: 100%;
-    }
+        .login-field input {
+            width: 100%;
+            padding: 8px 10px;
+            border-radius: 4px;
+            border: 1px solid rgba(184,164,214,0.4);
+            background: #1f1f23;
+            color: var(--text);
+        }
 
-    .login-button:hover {
-      background: linear-gradient(180deg, #4a3820, #3a2a18);
-    }
+        .login-button {
+            margin-top: 0.8rem;
+            padding: 8px 22px;
+            font-size: 1.1rem;
+            border-radius: 4px;
+            border: 1px solid rgba(184,164,214,0.6);
+            background: #2f2f36;
+            color: var(--text);
+            cursor: pointer;
+        }
 
-    .login-status {
-      margin-top: 1rem;
-      font-size: 0.9rem;
-      color: #c46b6b;
-      text-align: center;
-      min-height: 1.2em;
-    }
+        /* BUCH-INHALT */
+        #content {
+            visibility: hidden;
+            opacity: 0;
+            pointer-events: none;
+            transform: rotateY(-85deg) scale(0.85);
+            transform-origin: left center;
+            transition: opacity 1.2s ease,
+                        transform 1.6s cubic-bezier(0.23, 1, 0.32, 1);
+            padding: 60px 0;
+            z-index: 5;
+        }
 
-    /* Buchseiten */
-    .book-container {
-      padding: 40px;
-      max-width: 1200px;
-      margin: 0 auto;
-      text-align: left;
-      display: none;
-    }
+        /* Buchseiten */
+        .spread {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
 
-    .page {
-      background: var(--paper);
-      padding: 40px;
-      border-radius: 8px;
-      margin-bottom: 40px;
-      line-height: 1.7;
-      color: var(--text);
-      border: 1px solid rgba(184,164,214,0.25);
-      position: relative;
-    }
+        .page {
+            width: 48%;
+            background: var(--paper);
+            padding: 35px;
+            border-radius: 6px;
+            box-shadow:
+                0 0 25px rgba(0,0,0,0.7),
+                inset 0 0 20px rgba(0,0,0,0.5);
+            line-height: 1.7;
+            color: var(--text);
+            border: 1px solid rgba(184,164,214,0.25);
+            position: relative;
+            text-align: center;
+        }
 
-    .page .left::before,
-    .page .right::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      height: 100%;
-      width: 10px;
-      background: repeating-linear-gradient(
-        to bottom,
-        rgba(255,255,255,0.10) 0px,
-        rgba(255,255,255,0.10) 2px,
-        rgba(0,0,0,0.35) 3px,
-        rgba(0,0,0,0.35) 4px
-      );
-      opacity: 0.55;
-      pointer-events: none;
-      filter: blur(0.3px);
-    }
+        /* Seitenkanten */
+        .page.left::after,
+        .page.right::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            height: 100%;
+            width: 10px;
+            background: repeating-linear-gradient(
+                to bottom,
+                rgba(255,255,255,0.10) 0px,
+                rgba(255,255,255,0.10) 2px,
+                rgba(0,0,0,0.35) 3px,
+                rgba(0,0,0,0.35) 4px
+            );
+            opacity: 0.55;
+            filter: blur(0.3px);
+        }
 
-    .page .left::before { left: 0; }
-    .page .right::before { right: 0; }
+        .page.left::after { right: 0; }
+        .page.right::before { left: 0; }
 
-    .section-title {
-      font-size: 2.2rem;
-      margin-top: 25px;
-      margin-bottom: 15px;
-      color: var(--accent);
-      text-shadow: 0 0 8px var(--accent-soft);
-      text-align: center;
-    }
+        /* Kapitelüberschriften */
+        .section-title {
+            font-size: 2rem;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            color: var(--accent);
+            text-shadow: 0 0 8px var(--accent-soft);
+        }
 
-    .divider {
-      margin: 20px auto;
-      width: 60%;
-      height: 1px;
-      background: linear-gradient(
-        to right,
-        transparent,
-        var(--accent),
-        transparent
-      );
-    }
+        /* Ornamente */
+        .divider {
+            text-align: center;
+            margin: 25px 0;
+            font-size: 1.6rem;
+            opacity: 0.7;
+            color: var(--accent);
+            text-shadow: 0 0 6px var(--accent-soft);
+        }
 
-    .small {
-      font-size: 0.9rem;
-      opacity: 0.75;
-    }
-  </style>
+        /* Footer kleiner */
+        .small {
+            font-size: 0.9rem;
+            opacity: 0.75;
+        }
+    </style>
 </head>
 
 <body>
 
-  <!-- Nebel -->
-  <div id="fog-layer"></div>
+    <div id="fog-layer"></div>
 
-  <!-- LOGIN -->
-  <div id="login-overlay">
-    <div class="login-crest">✦</div>
-    <div class="login-title">Das Skelett, das Vögelchen & die Nixe</div>
+    <!-- LOGIN -->
+    <div id="login-overlay">
+        <div class="login-box">
+            <div class="login-crest">🦴 🐦 🧜‍♀️</div>
+            <div class="login-title">Das Skelett, das Vögelchen &amp; die Nixe</div>
+            <div class="login-sub">
+                Bitte gib den Benutzernamen ein, um das Abenteuer zu beginnen.
+                Das Passwort sollte einfach sein.
+            </div>
 
-    <div class="login-field">
-      <label for="user">Benutzername</label>
-      <input id="user" type="text">
+            <div class="login-field">
+                <label for="user">Benutzername</label>
+                <input type="text" id="user" autocomplete="off">
+            </div>
+
+            <div class="login-field">
+                <label for="pw">Passwort</label>
+                <input type="password" id="pw">
+            </div>
+
+            <button id="login-button" class="login-button">Betreten</button>
+            <div id="login-error" class="login-error"></div>
+        </div>
     </div>
 
-    <div class="login-field">
-      <label for="pass">Passwort</label>
-      <input id="pass" type="password">
-    </div>
+    <!-- BUCH-INHALT -->
+    <div id="content"></div>
 
-    <button class="login-button" id="loginBtn">Öffnen</button>
-    <div id="loginStatus" class="login-status"></div>
-  </div>
-
-  <!-- BUCH -->
-  <div class="book-container" id="book">
-    <div id="buchtext"></div>
-    <div class="page">
-      <div class="left"></div>
-      <div class="right"></div>
-
-      <h1 class="section-title">Das Skelett, das Vögelchen & die Nixe</h1>
-      <div class="divider"></div>
-
-      <p>Willkommen zurück in deiner Geschichte.  
-      Dies ist die schöne Version aus deinem Commit f627087 –  
-      komplett wiederhergestellt, mit Nebel, Ornamenten, Seitenkanten und typografischer Mitte.</p>
-
-      <p class="small">Hier kannst du später wieder deinen entschlüsselten Inhalt einfügen.</p>
-    </div>
-  </div>
-
-  <script>
-    const loginBtn = document.getElementById("loginBtn");
-    const loginOverlay = document.getElementById("login-overlay");
-    const book = document.getElementById("book");
-    const loginStatus = document.getElementById("loginStatus");
-
-    function tryLogin() {
-      const user = document.getElementById("user").value.trim();
-      const pass = document.getElementById("pass").value.trim();
-ladeGeheimenInhalt();
-
-      if (user === "Johann" && pass === "einfach") {
-        loginOverlay.style.display = "none";
-        book.style.display = "block";
-      } else {
-        loginStatus.textContent = "Benutzername oder Passwort falsch.";
-      }
+    <script>
+    async function sha256(str) {
+        const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(str));
+        return Array.from(new Uint8Array(buf))
+            .map(b => b.toString(16).padStart(2, "0"))
+            .join("");
     }
 
-    loginBtn.addEventListener("click", tryLogin);
-    document.getElementById("pass").addEventListener("keydown", e => {
-      if (e.key === "Enter") tryLogin();
-    });
-  </script>
-<script>
-async function ladeGeheimenInhalt() {
-    try {
-        // content.enc laden
-        const response = await fetch("content.enc");
-        const encrypted = await response.arrayBuffer();
+    async function checkLogin() {
+        const userInput = document.getElementById("user").value.trim();
+        const pwInput = document.getElementById("pw").value.trim();
 
-        // Base64-Key in ArrayBuffer umwandeln
-        const rawKey = Uint8Array.from(atob("HkJnMhcLCDz15ur0gipNyM3KKYwGLsFhT1a57l3oR8I="), c => c.charCodeAt(0));
+        const userHash = await sha256(userInput);
+        const pwHash = await sha256(pwInput);
 
-        // AES-GCM Schlüssel importieren
-        const key = await crypto.subtle.importKey(
-            "raw",
-            rawKey,
-            { name: "AES-GCM" },
-            false,
-            ["decrypt"]
-        );
+        const validUserHash = "05d27d804fa2eab1dc6d2257b71e4d4dee299d0325794dc5f8e07eab40b672a3";
+        const validPwHash = "92b9907fe97032befd467899d5d75fe14ad36a663f6a8b22679e2f096accd18a";
 
-        // IV = erste 12 Bytes
-        const iv = encrypted.slice(0, 12);
-        const data = encrypted.slice(12);
+        if (userHash === validUserHash && pwHash === validPwHash) {
 
-        // Entschlüsseln
-        const decrypted = await crypto.subtle.decrypt(
-            { name: "AES-GCM", iv },
-            key,
-            data
-        );
+            window.scrollTo(0, 0);
+            document.getElementById("login-overlay").style.display = "none";
 
-        // HTML ausgeben
-        const decoder = new TextDecoder();
-        const html = decoder.decode(decrypted);
+            fetch("content.html")
+                .then(r => r.text())
+                .then(html => {
+                    const content = document.getElementById("content");
+                    content.innerHTML = html;
 
-        // Inhalt in dein Buch einsetzen
-        document.getElementById("buchtext").innerHTML = html;
+                    content.style.visibility = "visible";
+                    content.style.opacity = "1";
+                    content.style.pointerEvents = "auto";
+                    content.style.transform = "rotateY(0deg) scale(1)";
+                });
 
-    } catch (e) {
-        console.error(e);
-        alert("Entschlüsselung fehlgeschlagen.");
+        } else {
+            document.getElementById("login-error").textContent =
+                "Benutzername oder Passwort ist falsch.";
+        }
     }
-}
-</script>
+
+    document.getElementById("login-button").addEventListener("click", checkLogin);
+    document.addEventListener("keydown", e => { if (e.key === "Enter") checkLogin(); });
+    </script>
 
 </body>
 </html>
