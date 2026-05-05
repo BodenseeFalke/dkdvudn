@@ -262,6 +262,49 @@
       if (e.key === "Enter") tryLogin();
     });
   </script>
+<script>
+async function ladeGeheimenInhalt() {
+    try {
+        // content.enc laden
+        const response = await fetch("content.enc");
+        const encrypted = await response.arrayBuffer();
+
+        // Base64-Key in ArrayBuffer umwandeln
+        const rawKey = Uint8Array.from(atob("HkJnMhcLCDz15ur0gipNyM3KKYwGLsFhT1a57l3oR8I="), c => c.charCodeAt(0));
+
+        // AES-GCM Schlüssel importieren
+        const key = await crypto.subtle.importKey(
+            "raw",
+            rawKey,
+            { name: "AES-GCM" },
+            false,
+            ["decrypt"]
+        );
+
+        // IV = erste 12 Bytes
+        const iv = encrypted.slice(0, 12);
+        const data = encrypted.slice(12);
+
+        // Entschlüsseln
+        const decrypted = await crypto.subtle.decrypt(
+            { name: "AES-GCM", iv },
+            key,
+            data
+        );
+
+        // HTML ausgeben
+        const decoder = new TextDecoder();
+        const html = decoder.decode(decrypted);
+
+        // Inhalt in dein Buch einsetzen
+        document.getElementById("buchtext").innerHTML = html;
+
+    } catch (e) {
+        console.error(e);
+        alert("Entschlüsselung fehlgeschlagen.");
+    }
+}
+</script>
 
 </body>
 </html>
