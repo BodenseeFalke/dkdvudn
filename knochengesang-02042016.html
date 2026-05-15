@@ -1,112 +1,97 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <title>Knochengesang</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            background: #050608;
-            color: #f5f1e6;
-            font-family: "Georgia", "Times New Roman", serif;
-        }
+<meta charset="UTF-8">
 
-        .wrapper {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
+<style>
+.page {
+    max-width: 800px;
+    border: 1px solid #7b6a3a;
+    padding: 40px 30px 32px;
+    box-shadow: 0 0 40px rgba(0,0,0,0.8);
+    background: radial-gradient(circle at top, #1b1512 0, #050608 55%);
+    position: relative;
+}
+.page::before,
+.page::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    width: 60%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #c9b37a, transparent);
+    transform: translateX(-50%);
+    opacity: 0.7;
+}
+.page::before { top: 18px; }
+.page::after { bottom: 18px; }
 
-        .page {
-            max-width: 800px;
-            border: 1px solid #7b6a3a;
-            padding: 40px 30px 32px;
-            box-shadow: 0 0 40px rgba(0,0,0,0.8);
-            background: radial-gradient(circle at top, #1b1512 0, #050608 55%);
-            position: relative;
-        }
+.icon {
+    text-align: center;
+    font-size: 40px;
+    margin-bottom: 18px;
+}
 
-        .page::before,
-        .page::after {
-            content: "";
-            position: absolute;
-            left: 50%;
-            width: 60%;
-            height: 1px;
-            background: linear-gradient(to right, transparent, #c9b37a, transparent);
-            transform: translateX(-50%);
-            opacity: 0.7;
-        }
+.title {
+    text-align: center;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-size: 16px;
+    color: #d4c28a;
+    margin-bottom: 26px;
+}
 
-        .page::before {
-            top: 18px;
-        }
+.strophe {
+    max-width: 700px;
+    margin: 0 auto;
+    font-size: 26px;
+    line-height: 1.5;
+    white-space: pre-line;
+    text-align: center;
+}
 
-        .page::after {
-            bottom: 18px;
-        }
-
-        .icon {
-            text-align: center;
-            font-size: 40px;
-            margin-bottom: 18px;
-        }
-
-        .title {
-            text-align: center;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            font-size: 16px;
-            color: #d4c28a;
-            margin-bottom: 26px;
-        }
-
-        .strophe {
-            max-width: 700px;
-            margin: 0 auto;
-            font-size: 26px;
-            line-height: 1.5;
-            white-space: pre-line;
-            text-align: center;
-        }
-
-        .hint {
-            margin-top: 32px;
-            text-align: center;
-            font-size: 16px;
-            color: #b3a27a;
-            font-style: italic;
-        }
-
-        /* Versteckte Koordinaten – nur im Quelltext sichtbar */
-        .knochen-koords {
-            font-size: 0;
-            height: 0;
-            overflow: hidden;
-        }
-    </style>
+.hint {
+    margin-top: 32px;
+    text-align: center;
+    font-size: 20px;
+    color: white;
+    font-style: italic;
+}
+</style>
 </head>
+
 <body>
 <div class="wrapper">
-    <div class="page">
-        <div class="icon">💀</div>
+<div class="page">
+
+<div class="icon">💀</div>
+
 <div class="strophe" style="font-style:italic;">
 
-<span style="color:#d4c28a;"> <span style="background-color:rgba(200,210,255,0.45);">Dort zwischen</span> seinen alten Knochen fand er ein Ei, ganz klein! <span style="background-color:rgba(200,210,255,0.45);">Bald war die Schale aufgebrochen von einem Vögelein!</span> Er zog es auf, fing ihm Insekten und grub nach Würmern gar, weil die dem Vöglein so gut schmeckten <span style="background-color:rgba(200,210,255,0.45);">und es so hungrig war.</span> Dem Vöglein wuchs schon bald Gefieder, es dauerte nicht lang, dass aus den alten Knochen wieder drang</span><span style="font-style:italic;"> lieblicher Gesang.</span>
+<span style="color:#d4c28a;">
+
+<span style="background-color:rgba(180,180,200,0.55);">Dort zwischen</span> seinen alten Knochen fand er ein Ei, ganz klein!
+<span style="background-color:rgba(180,180,200,0.55);">Bald war die Schale aufgebrochen von einem Vögelein!</span>
+Er zog es auf, fing ihm Insekten und grub nach Würmern gar, weil die dem Vögelein so gut schmeckten
+<span style="background-color:rgba(180,180,200,0.55);">und es so hungrig war.</span>
+Dem Vöglein wuchs schon bald Gefieder, es dauerte nicht lang, dass aus den alten Knochen wieder drang
+
+</span>
+
+<span style="font-style:italic;">lieblicher Gesang.</span>
 
 </div>
 
 <br>
 
-<div class="hint" style="text-align:center; margin-top:20px; font-size:20px; color:white;">
+<div class="hint">
     N 47° 51.0<span style="color:#d4c28a;">XX</span> &nbsp;&nbsp;
     E 008° 49.<span style="background-color:rgba(180,180,200,0.55);">XXX</span><br>
     Gold kennt die Richtung des Liedes,<br>
     Silber die Richtung des Windes.
 </div>
 
+</div>
+</div>
+</body>
+</html>
